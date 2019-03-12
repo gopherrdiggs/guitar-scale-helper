@@ -1,0 +1,9 @@
+.fretNoteButton {
+  padding: 0px;
+  margin: 0px;
+}
+
+.fretNoteName {
+  padding: 3px;
+  background-color: rgb(255, 255, 255);
+}

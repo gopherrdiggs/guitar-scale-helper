@@ -1,9 +1,8 @@
 {
-  "name": "stencil-ionic-starter",
+  "name": "guitar-scale-helper",
   "private": true,
   "version": "0.0.1",
-  "description": "stencil-ionic-starter",
-  "license": "MIT",
+  "description": "guitar-scale-helper",
   "files": [
     "dist/"
   ],
@@ -14,9 +13,10 @@
     "test.watch": "stencil test --spec --e2e --watch"
   },
   "dependencies": {
-    "@ionic/core": "4.0.0"
+    "@ionic/core": "4.1.1",
+    "split-me": "^1.1.7"
   },
   "devDependencies": {
-    "@stencil/core": "0.17.0"
+    "@stencil/core": "0.18.0"
   }
 }

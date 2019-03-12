@@ -7,18 +7,12 @@
 
 import '@stencil/core';
 
+import 'split-me';
 import '@ionic/core';
 import 'ionicons';
 
 
 export namespace Components {
-
-  interface AppHeader {
-    'headerTitle': string;
-  }
-  interface AppHeaderAttributes extends StencilHTMLAttributes {
-    'headerTitle'?: string;
-  }
 
   interface AppHome {}
   interface AppHomeAttributes extends StencilHTMLAttributes {}
@@ -26,66 +20,72 @@ export namespace Components {
   interface AppRoot {}
   interface AppRootAttributes extends StencilHTMLAttributes {}
 
-  interface AppSubheader {
-    'hasCreate': boolean;
-    'hasTitle': boolean;
-    'moreMenuComponent': string;
-    'subheaderTitle': string;
+  interface GstBridge {
+    'bridgeData': string;
   }
-  interface AppSubheaderAttributes extends StencilHTMLAttributes {
-    'hasCreate'?: boolean;
-    'hasTitle'?: boolean;
-    'moreMenuComponent'?: string;
-    'subheaderTitle'?: string;
+  interface GstBridgeAttributes extends StencilHTMLAttributes {
+    'bridgeData'?: string;
   }
 
-  interface LocationDetail {}
-  interface LocationDetailAttributes extends StencilHTMLAttributes {}
+  interface GstBridgeslot {
+    'noteData': string;
+  }
+  interface GstBridgeslotAttributes extends StencilHTMLAttributes {
+    'noteData'?: string;
+  }
 
-  interface LocationsList {}
-  interface LocationsListAttributes extends StencilHTMLAttributes {}
+  interface GstFret {
+    'fretData': string;
+  }
+  interface GstFretAttributes extends StencilHTMLAttributes {
+    'fretData'?: string;
+  }
 
-  interface MaterialDetail {}
-  interface MaterialDetailAttributes extends StencilHTMLAttributes {}
+  interface GstFretboard {}
+  interface GstFretboardAttributes extends StencilHTMLAttributes {}
 
-  interface MaterialsListMorePopover {}
-  interface MaterialsListMorePopoverAttributes extends StencilHTMLAttributes {}
+  interface GstFretnote {
+    'isRoot': boolean;
+    'isShown': boolean;
+    'noteName': string;
+  }
+  interface GstFretnoteAttributes extends StencilHTMLAttributes {
+    'isRoot'?: boolean;
+    'isShown'?: boolean;
+    'noteName'?: string;
+  }
 
-  interface MaterialsList {}
-  interface MaterialsListAttributes extends StencilHTMLAttributes {}
+  interface GstFretslot {
+    'noteData': string;
+  }
+  interface GstFretslotAttributes extends StencilHTMLAttributes {
+    'noteData'?: string;
+  }
 }
 
 declare global {
   interface StencilElementInterfaces {
-    'AppHeader': Components.AppHeader;
     'AppHome': Components.AppHome;
     'AppRoot': Components.AppRoot;
-    'AppSubheader': Components.AppSubheader;
-    'LocationDetail': Components.LocationDetail;
-    'LocationsList': Components.LocationsList;
-    'MaterialDetail': Components.MaterialDetail;
-    'MaterialsListMorePopover': Components.MaterialsListMorePopover;
-    'MaterialsList': Components.MaterialsList;
+    'GstBridge': Components.GstBridge;
+    'GstBridgeslot': Components.GstBridgeslot;
+    'GstFret': Components.GstFret;
+    'GstFretboard': Components.GstFretboard;
+    'GstFretnote': Components.GstFretnote;
+    'GstFretslot': Components.GstFretslot;
   }
 
   interface StencilIntrinsicElements {
-    'app-header': Components.AppHeaderAttributes;
     'app-home': Components.AppHomeAttributes;
     'app-root': Components.AppRootAttributes;
-    'app-subheader': Components.AppSubheaderAttributes;
-    'location-detail': Components.LocationDetailAttributes;
-    'locations-list': Components.LocationsListAttributes;
-    'material-detail': Components.MaterialDetailAttributes;
-    'materials-list-more-popover': Components.MaterialsListMorePopoverAttributes;
-    'materials-list': Components.MaterialsListAttributes;
+    'gst-bridge': Components.GstBridgeAttributes;
+    'gst-bridgeslot': Components.GstBridgeslotAttributes;
+    'gst-fret': Components.GstFretAttributes;
+    'gst-fretboard': Components.GstFretboardAttributes;
+    'gst-fretnote': Components.GstFretnoteAttributes;
+    'gst-fretslot': Components.GstFretslotAttributes;
   }
 
-
-  interface HTMLAppHeaderElement extends Components.AppHeader, HTMLStencilElement {}
-  var HTMLAppHeaderElement: {
-    prototype: HTMLAppHeaderElement;
-    new (): HTMLAppHeaderElement;
-  };
 
   interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {}
   var HTMLAppHomeElement: {
@@ -99,64 +99,62 @@ declare global {
     new (): HTMLAppRootElement;
   };
 
-  interface HTMLAppSubheaderElement extends Components.AppSubheader, HTMLStencilElement {}
-  var HTMLAppSubheaderElement: {
-    prototype: HTMLAppSubheaderElement;
-    new (): HTMLAppSubheaderElement;
+  interface HTMLGstBridgeElement extends Components.GstBridge, HTMLStencilElement {}
+  var HTMLGstBridgeElement: {
+    prototype: HTMLGstBridgeElement;
+    new (): HTMLGstBridgeElement;
   };
 
-  interface HTMLLocationDetailElement extends Components.LocationDetail, HTMLStencilElement {}
-  var HTMLLocationDetailElement: {
-    prototype: HTMLLocationDetailElement;
-    new (): HTMLLocationDetailElement;
+  interface HTMLGstBridgeslotElement extends Components.GstBridgeslot, HTMLStencilElement {}
+  var HTMLGstBridgeslotElement: {
+    prototype: HTMLGstBridgeslotElement;
+    new (): HTMLGstBridgeslotElement;
   };
 
-  interface HTMLLocationsListElement extends Components.LocationsList, HTMLStencilElement {}
-  var HTMLLocationsListElement: {
-    prototype: HTMLLocationsListElement;
-    new (): HTMLLocationsListElement;
+  interface HTMLGstFretElement extends Components.GstFret, HTMLStencilElement {}
+  var HTMLGstFretElement: {
+    prototype: HTMLGstFretElement;
+    new (): HTMLGstFretElement;
   };
 
-  interface HTMLMaterialDetailElement extends Components.MaterialDetail, HTMLStencilElement {}
-  var HTMLMaterialDetailElement: {
-    prototype: HTMLMaterialDetailElement;
-    new (): HTMLMaterialDetailElement;
+  interface HTMLGstFretboardElement extends Components.GstFretboard, HTMLStencilElement {}
+  var HTMLGstFretboardElement: {
+    prototype: HTMLGstFretboardElement;
+    new (): HTMLGstFretboardElement;
   };
 
-  interface HTMLMaterialsListMorePopoverElement extends Components.MaterialsListMorePopover, HTMLStencilElement {}
-  var HTMLMaterialsListMorePopoverElement: {
-    prototype: HTMLMaterialsListMorePopoverElement;
-    new (): HTMLMaterialsListMorePopoverElement;
+  interface HTMLGstFretnoteElement extends Components.GstFretnote, HTMLStencilElement {}
+  var HTMLGstFretnoteElement: {
+    prototype: HTMLGstFretnoteElement;
+    new (): HTMLGstFretnoteElement;
   };
 
-  interface HTMLMaterialsListElement extends Components.MaterialsList, HTMLStencilElement {}
-  var HTMLMaterialsListElement: {
-    prototype: HTMLMaterialsListElement;
-    new (): HTMLMaterialsListElement;
+  interface HTMLGstFretslotElement extends Components.GstFretslot, HTMLStencilElement {}
+  var HTMLGstFretslotElement: {
+    prototype: HTMLGstFretslotElement;
+    new (): HTMLGstFretslotElement;
   };
 
   interface HTMLElementTagNameMap {
-    'app-header': HTMLAppHeaderElement
     'app-home': HTMLAppHomeElement
     'app-root': HTMLAppRootElement
-    'app-subheader': HTMLAppSubheaderElement
-    'location-detail': HTMLLocationDetailElement
-    'locations-list': HTMLLocationsListElement
-    'material-detail': HTMLMaterialDetailElement
-    'materials-list-more-popover': HTMLMaterialsListMorePopoverElement
-    'materials-list': HTMLMaterialsListElement
+    'gst-bridge': HTMLGstBridgeElement
+    'gst-bridgeslot': HTMLGstBridgeslotElement
+    'gst-fret': HTMLGstFretElement
+    'gst-fretboard': HTMLGstFretboardElement
+    'gst-fretnote': HTMLGstFretnoteElement
+    'gst-fretslot': HTMLGstFretslotElement
   }
 
   interface ElementTagNameMap {
-    'app-header': HTMLAppHeaderElement;
     'app-home': HTMLAppHomeElement;
     'app-root': HTMLAppRootElement;
-    'app-subheader': HTMLAppSubheaderElement;
-    'location-detail': HTMLLocationDetailElement;
-    'locations-list': HTMLLocationsListElement;
-    'material-detail': HTMLMaterialDetailElement;
-    'materials-list-more-popover': HTMLMaterialsListMorePopoverElement;
-    'materials-list': HTMLMaterialsListElement;
+    'gst-bridge': HTMLGstBridgeElement;
+    'gst-bridgeslot': HTMLGstBridgeslotElement;
+    'gst-fret': HTMLGstFretElement;
+    'gst-fretboard': HTMLGstFretboardElement;
+    'gst-fretnote': HTMLGstFretnoteElement;
+    'gst-fretslot': HTMLGstFretslotElement;
   }
 
 
