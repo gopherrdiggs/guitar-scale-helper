@@ -41,7 +41,9 @@ export namespace Components {
     'fretData'?: string;
   }
 
-  interface GstFretboard {}
+  interface GstFretboard {
+    'loadScale': () => Promise<void>;
+  }
   interface GstFretboardAttributes extends StencilHTMLAttributes {}
 
   interface GstFretnote {
@@ -61,6 +63,13 @@ export namespace Components {
   interface GstFretslotAttributes extends StencilHTMLAttributes {
     'noteData'?: string;
   }
+
+  interface GstScaleSelector {
+    'getScaleInterval': () => string;
+  }
+  interface GstScaleSelectorAttributes extends StencilHTMLAttributes {
+    'onGstScaleSelected'?: (event: CustomEvent) => void;
+  }
 }
 
 declare global {
@@ -73,6 +82,7 @@ declare global {
     'GstFretboard': Components.GstFretboard;
     'GstFretnote': Components.GstFretnote;
     'GstFretslot': Components.GstFretslot;
+    'GstScaleSelector': Components.GstScaleSelector;
   }
 
   interface StencilIntrinsicElements {
@@ -84,6 +94,7 @@ declare global {
     'gst-fretboard': Components.GstFretboardAttributes;
     'gst-fretnote': Components.GstFretnoteAttributes;
     'gst-fretslot': Components.GstFretslotAttributes;
+    'gst-scale-selector': Components.GstScaleSelectorAttributes;
   }
 
 
@@ -135,6 +146,12 @@ declare global {
     new (): HTMLGstFretslotElement;
   };
 
+  interface HTMLGstScaleSelectorElement extends Components.GstScaleSelector, HTMLStencilElement {}
+  var HTMLGstScaleSelectorElement: {
+    prototype: HTMLGstScaleSelectorElement;
+    new (): HTMLGstScaleSelectorElement;
+  };
+
   interface HTMLElementTagNameMap {
     'app-home': HTMLAppHomeElement
     'app-root': HTMLAppRootElement
@@ -144,6 +161,7 @@ declare global {
     'gst-fretboard': HTMLGstFretboardElement
     'gst-fretnote': HTMLGstFretnoteElement
     'gst-fretslot': HTMLGstFretslotElement
+    'gst-scale-selector': HTMLGstScaleSelectorElement
   }
 
   interface ElementTagNameMap {
@@ -155,6 +173,7 @@ declare global {
     'gst-fretboard': HTMLGstFretboardElement;
     'gst-fretnote': HTMLGstFretnoteElement;
     'gst-fretslot': HTMLGstFretslotElement;
+    'gst-scale-selector': HTMLGstScaleSelectorElement;
   }
 
 

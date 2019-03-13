@@ -1,10 +1,17 @@
-import { Component } from "@stencil/core";
+import { Component, Method, State } from "@stencil/core";
 
 @Component({
   tag: 'gst-fretboard',
   styleUrl: 'gst-fretboard.css'
 })
 export class GstFretboard {
+
+  @State() currentTuning: string = 'E|A|D|G|B|E';
+
+  @Method()
+  async loadScale() {
+
+  }
 
   render() {
     return [
