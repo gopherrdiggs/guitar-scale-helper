@@ -1,4 +1,5 @@
-import { Component, Event, EventEmitter, Listen, Method, State } from "@stencil/core";
+import { Component, Event, EventEmitter, Method, State } from "@stencil/core";
+import { Scale, ScaleMode } from "../../interfaces";
 
 @Component({
   tag: 'gst-scale-selector',
@@ -7,9 +8,18 @@ import { Component, Event, EventEmitter, Listen, Method, State } from "@stencil/
 export class GstScaleSelector {
 
   @Event() gstScaleSelected: EventEmitter;
-  @State() selectedRoot: string;
-  @State() selectedScale: string;
-  @State() selectedModeInterval: string;
+
+  @State() scaleModes: ScaleMode[] = [];
+  @State() selectedRoot: string = 'C';
+  @State() selectedScale: Scale;
+  @State() selectedMode: ScaleMode;
+
+  private modalController: HTMLIonModalControllerElement;
+
+  componentDidLoad() {
+
+    this.modalController = document.querySelector('ion-modal-controller');
+  }
 
   @Method()
   getScaleInterval() {
@@ -17,30 +27,78 @@ export class GstScaleSelector {
     return this.selectedScale;
   }
 
-  @Listen('ionChange')
-  handleIonChange(event: any) {
+  async displayRootSelectorModal() {
 
-    if (!event) {
-      return;
-    }
+    let modal = await this.modalController.create({
+      component: 'gst-root-selector-modal'
+    });
 
-    console.log('select event', event);
-    if (event.target.id === 'rootSelect') {
-      this.selectedRoot = event.detail.value;
-    }
-    else if (event.target.id === 'scaleSelect') {
-      this.selectedScale = event.detail.value;
-    }
-    else if (event.target.id === 'modeSelect') {
-      this.selectedModeInterval = event.detail.value;
-    }
+    modal.onDidDismiss().then((event) => {
 
-    if (this.selectedRoot && this.selectedScale && this.selectedModeInterval) {
-      this.gstScaleSelected.emit({
-        root: this.selectedRoot,
-        interval: this.selectedModeInterval
-      });
-    }
+      if (!event || !event.data) { return }
+
+      this.selectedRoot = event.data.selectedRoot;
+
+      if (this.selectedMode) {
+        this.gstScaleSelected.emit({
+          root: this.selectedRoot,
+          interval: this.selectedMode.intervalDefinition
+        });
+      }
+    });
+
+    await modal.present();
+  }
+
+  async displayScaleSelectorModal() {
+
+    let modal = await this.modalController.create({
+      component: 'gst-scale-selector-modal'
+    });
+
+    modal.onDidDismiss().then((event) => {
+
+      if (!event || !event.data) { return }
+
+      this.selectedScale = event.data.selectedScale;
+      this.scaleModes = [...event.data.selectedScale.modes];
+      this.selectedMode = this.scaleModes[0];
+      
+      if (this.selectedRoot && this.selectedMode) {
+        this.gstScaleSelected.emit({
+          root: this.selectedRoot,
+          interval: this.selectedMode.intervalDefinition
+        });
+      }
+    });
+
+    await modal.present();
+  }
+
+  async displayModeSelectorModal() {
+    
+    let modal = await this.modalController.create({
+      component: 'gst-mode-selector-modal',
+      componentProps: {
+        scaleModes: this.selectedScale.modes
+      }
+    });
+
+    modal.onDidDismiss().then((event) => {
+
+      if (!event || !event.data) { return }
+      
+      this.selectedMode = event.data.selectedMode;
+
+      if (this.selectedRoot) {
+        this.gstScaleSelected.emit({
+          root: this.selectedRoot,
+          interval: this.selectedMode.intervalDefinition
+        });
+      }
+    })
+
+    await modal.present();
   }
 
   render() {
@@ -55,43 +113,34 @@ export class GstScaleSelector {
               <ion-col size='2'>
                 <ion-item>
                   <ion-label position='stacked'>Root</ion-label>
-                  <ion-select id='rootSelect'>
-                    <ion-select-option value='C'>C</ion-select-option>
-                    <ion-select-option value='C#/Db'>C#/Db</ion-select-option>
-                    <ion-select-option value='D'>D</ion-select-option>
-                    <ion-select-option value='D#/Eb'>D#/Eb</ion-select-option>
-                    <ion-select-option value='E'>E</ion-select-option>
-                    <ion-select-option value='F'>C</ion-select-option>
-                    <ion-select-option value='F#/Gb'>F#/Gb</ion-select-option>
-                    <ion-select-option value='G'>G</ion-select-option>
-                    <ion-select-option value='G#/Ab'>G#/Ab</ion-select-option>
-                    <ion-select-option value='A'>A</ion-select-option>
-                    <ion-select-option value='A#/Bb'>A#/Bb</ion-select-option>
-                    <ion-select-option value='B'>B</ion-select-option>
-                  </ion-select>
+                  <ion-input readonly placeholder='Select a root' 
+                             value={this.selectedRoot}></ion-input>
+                  <ion-button slot='end' fill='clear'
+                              onClick={()=>this.displayRootSelectorModal()}>
+                    <ion-icon slot='icon-only' name='more' />
+                  </ion-button>
                 </ion-item>
               </ion-col>
               <ion-col size='6'>
                 <ion-item>
                   <ion-label position='stacked'>Scale</ion-label>
-                  <ion-select id='scaleSelect'>
-                    <ion-select-option value='major'>Major</ion-select-option>
-                    <ion-select-option value='pentatonic'>Pentatonic</ion-select-option>
-                  </ion-select>
+                  <ion-input readonly placeholder='Select a scale' 
+                             value={this.selectedScale ? this.selectedScale.name : ''}></ion-input>
+                  <ion-button slot='end' fill='clear'
+                              onClick={()=>this.displayScaleSelectorModal()}>
+                    <ion-icon slot='icon-only' name='more' />
+                  </ion-button>
                 </ion-item>
               </ion-col>
               <ion-col size='4'>
                 <ion-item>
                   <ion-label position='stacked'>Mode</ion-label>
-                  <ion-select id='modeSelect'>
-                    <ion-select-option value='1|-|2|-|3|4|-|5|-|6|-|7'>Ionian (Major)</ion-select-option>
-                    <ion-select-option value='1|-|2|b3|-|4|-|5|-|6|b7'>Dorian</ion-select-option>
-                    <ion-select-option value='1|b2|-|b3|-|4|-|5|b6|-|b7'>Phrygian</ion-select-option>
-                    <ion-select-option value='1|-|2|-|3|-|s4|5|-|6|-|7'>Lydian</ion-select-option>
-                    <ion-select-option value='1|-|2|-|3|4|-|5|-|6|b7'>Mixolydian</ion-select-option>
-                    <ion-select-option value='1|-|2|b3|-|4|-|5|b6|-|b7'>Aeolian (Natural Minor)</ion-select-option>
-                    <ion-select-option value='1|b2|-|b3|-|4|b5|-|b6|-|b7'>Locrian</ion-select-option>
-                  </ion-select>
+                  <ion-input readonly placeholder='Select a mode' 
+                             value={this.selectedMode ? this.selectedMode.name : ''}></ion-input>
+                  <ion-button slot='end' fill='clear' disabled={!this.selectedScale}
+                              onClick={()=>this.displayModeSelectorModal()}>
+                    <ion-icon slot='icon-only' name='more' />
+                  </ion-button>
                 </ion-item>
               </ion-col>
             </ion-row>

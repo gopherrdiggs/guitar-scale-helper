@@ -12,17 +12,15 @@ export class AppHome {
   async handleScaleSelected(event: any) {
     console.log('Scale selected event: ', event);
 
-    await this.calculateKey(event.detail.root, event.detail.interval);
+    let key = await this.calculateKey(event.detail.root, event.detail.interval);
+    console.log('Calculated key:', key);
   }
 
   // Given a root note and an interval definition, calculate the scale key
   async calculateKey(root: string, intervalDefinition: string) {
 
-    console.log('root', root);
-    console.log('intervalDefinition', intervalDefinition);
     let seedKeyNotes = ['A','B','C','D','E','F','G'];
     let allNotes = [...this.constNotes];
-    console.log('allNotes', allNotes);
 
     // Reposition items in the array, starting with closest to root note.
     // Every scale should have these notes in some fashion, possible flat or sharp.
@@ -68,9 +66,6 @@ export class AppHome {
           seedKeyNotes.shift();
           intervalToneNumber = intervalToneNumber + 1;
         }
-
-        console.log('intervalArray[0]', intervalArray[0]);
-
         
         if (intervalArray[0].indexOf('s') > -1) {
           // Interval declares this note to be sharp
@@ -100,7 +95,6 @@ export class AppHome {
       intervalArray.shift();
     }
 
-    console.log('keyNotes', keyNotes.join('|'));
     return keyNotes.join('|');
   }
 

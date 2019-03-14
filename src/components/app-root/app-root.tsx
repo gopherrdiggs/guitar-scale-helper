@@ -18,7 +18,7 @@ export class AppRoot {
     return (
       <ion-app>
         <ion-toast-controller />
-        <ion-popover-controller />
+        <ion-modal-controller />
         { this.configureRoutes() }
         <ion-nav main animated={false} />
       </ion-app>

@@ -1,0 +1,41 @@
+[
+  { "name": "7 Tone Scales",
+    "scales": [
+      { "id": "major", "name": "Major", 
+        "modes": [
+          { "id": "ionian", "name": "Ionian (Major)", "intervalDefinition": "1|-|2|-|3|4|-|5|-|6|-|7"},
+          { "id": "dorian", "name": "Dorian", "intervalDefinition": "1|-|2|b3|-|4|-|5|-|6|b7"},
+          { "id": "phrygian", "name": "Phrygian", "intervalDefinition": "1|b2|-|b3|-|4|-|5|b6|-|b7"},
+          { "id": "lydian", "name": "Lydian", "intervalDefinition": "1|-|2|-|3|-|s4|5|-|6|-|7"},
+          { "id": "mixolydian", "name": "Mixolydian", "intervalDefinition": "1|-|2|-|3|4|-|5|-|6|b7"},
+          { "id": "aeolian", "name": "Aeolian (Natural Minor)", "intervalDefinition": "1|-|2|b3|-|4|-|5|b6|-|b7"},
+          { "id": "locrian", "name": "Locrian", "intervalDefinition": "1|b2|-|b3|-|4|b5|-|b6|-|b7"}
+        ]}
+    ]},
+  { "name": "5 Tone Scales",
+    "scales": [
+      { "id": "pentatonic", "name": "Pentatonic", 
+      "modes": [
+        { "id": "minorPentatonic", "name": "Pentatonic (Minor)", "intervalDefinition": "1|-|-|b3|-|4|-|5|-|-|b7"},
+        { "id": "majorPentatonic", "name": "Pentatonic (Major)", "intervalDefinition": "1|-|2|-|3|-|-|5|-|6"},
+        { "id": "modeIII", "name": "Mode III", "intervalDefinition": "1|-|2|-|-|4|-|5|-|-|b7"},
+        { "id": "modeIV", "name": "Mode IV", "intervalDefinition": "1|-|-|b3|-|4|-|-|s5|-|b7"},
+        { "id": "modeV", "name": "Mode V", "intervalDefinition": "1|-|2|-|-|4|-|5|-|6"}
+      ]}
+    ]},
+  { "name": "6 Tone Scales",
+    "scales": [
+      { "id": "wholeTone", "name": "Whole Tone", 
+      "modes": [
+        { "id": "wholeTone", "name": "Whole Tone", "intervalDefinition": "1|-|2|-|3|-|s4|-|s5|-|s6"}
+      ]}
+    ]},
+  { "name": "8 Tone Scales",
+    "scales": [
+      { "id": "diminished", "name": "Diminished", 
+      "modes": [
+        { "id": "wholeHalfI", "name": "Whole-Half (I)", "intervalDefinition": "1|-|2|b3|-|4|b5|-|b6|6|-|7"},
+        { "id": "halfWholeII", "name": "Half-Whole (II)", "intervalDefinition": "1|b2|-|b3|3|-|s4|5|-|6|b7"}
+      ]}
+    ]}
+]

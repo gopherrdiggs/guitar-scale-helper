@@ -7,9 +7,12 @@
 
 import '@stencil/core';
 
-import 'split-me';
 import '@ionic/core';
 import 'ionicons';
+import {
+  Scale,
+  ScaleMode,
+} from './interfaces';
 
 
 export namespace Components {
@@ -65,11 +68,24 @@ export namespace Components {
   }
 
   interface GstScaleSelector {
-    'getScaleInterval': () => string;
+    'getScaleInterval': () => Scale;
   }
   interface GstScaleSelectorAttributes extends StencilHTMLAttributes {
     'onGstScaleSelected'?: (event: CustomEvent) => void;
   }
+
+  interface GstModeSelectorModal {
+    'scaleModes': ScaleMode[];
+  }
+  interface GstModeSelectorModalAttributes extends StencilHTMLAttributes {
+    'scaleModes'?: ScaleMode[];
+  }
+
+  interface GstRootSelectorModal {}
+  interface GstRootSelectorModalAttributes extends StencilHTMLAttributes {}
+
+  interface GstScaleSelectorModal {}
+  interface GstScaleSelectorModalAttributes extends StencilHTMLAttributes {}
 }
 
 declare global {
@@ -83,6 +99,9 @@ declare global {
     'GstFretnote': Components.GstFretnote;
     'GstFretslot': Components.GstFretslot;
     'GstScaleSelector': Components.GstScaleSelector;
+    'GstModeSelectorModal': Components.GstModeSelectorModal;
+    'GstRootSelectorModal': Components.GstRootSelectorModal;
+    'GstScaleSelectorModal': Components.GstScaleSelectorModal;
   }
 
   interface StencilIntrinsicElements {
@@ -95,6 +114,9 @@ declare global {
     'gst-fretnote': Components.GstFretnoteAttributes;
     'gst-fretslot': Components.GstFretslotAttributes;
     'gst-scale-selector': Components.GstScaleSelectorAttributes;
+    'gst-mode-selector-modal': Components.GstModeSelectorModalAttributes;
+    'gst-root-selector-modal': Components.GstRootSelectorModalAttributes;
+    'gst-scale-selector-modal': Components.GstScaleSelectorModalAttributes;
   }
 
 
@@ -152,6 +174,24 @@ declare global {
     new (): HTMLGstScaleSelectorElement;
   };
 
+  interface HTMLGstModeSelectorModalElement extends Components.GstModeSelectorModal, HTMLStencilElement {}
+  var HTMLGstModeSelectorModalElement: {
+    prototype: HTMLGstModeSelectorModalElement;
+    new (): HTMLGstModeSelectorModalElement;
+  };
+
+  interface HTMLGstRootSelectorModalElement extends Components.GstRootSelectorModal, HTMLStencilElement {}
+  var HTMLGstRootSelectorModalElement: {
+    prototype: HTMLGstRootSelectorModalElement;
+    new (): HTMLGstRootSelectorModalElement;
+  };
+
+  interface HTMLGstScaleSelectorModalElement extends Components.GstScaleSelectorModal, HTMLStencilElement {}
+  var HTMLGstScaleSelectorModalElement: {
+    prototype: HTMLGstScaleSelectorModalElement;
+    new (): HTMLGstScaleSelectorModalElement;
+  };
+
   interface HTMLElementTagNameMap {
     'app-home': HTMLAppHomeElement
     'app-root': HTMLAppRootElement
@@ -162,6 +202,9 @@ declare global {
     'gst-fretnote': HTMLGstFretnoteElement
     'gst-fretslot': HTMLGstFretslotElement
     'gst-scale-selector': HTMLGstScaleSelectorElement
+    'gst-mode-selector-modal': HTMLGstModeSelectorModalElement
+    'gst-root-selector-modal': HTMLGstRootSelectorModalElement
+    'gst-scale-selector-modal': HTMLGstScaleSelectorModalElement
   }
 
   interface ElementTagNameMap {
@@ -174,6 +217,9 @@ declare global {
     'gst-fretnote': HTMLGstFretnoteElement;
     'gst-fretslot': HTMLGstFretslotElement;
     'gst-scale-selector': HTMLGstScaleSelectorElement;
+    'gst-mode-selector-modal': HTMLGstModeSelectorModalElement;
+    'gst-root-selector-modal': HTMLGstRootSelectorModalElement;
+    'gst-scale-selector-modal': HTMLGstScaleSelectorModalElement;
   }
 
 
