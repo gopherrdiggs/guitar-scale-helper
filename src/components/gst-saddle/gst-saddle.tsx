@@ -1,12 +1,12 @@
 import { Component, Prop, State } from "@stencil/core";
 
 @Component({
-  tag: 'gst-bridge',
-  styleUrl: 'gst-bridge.css'
+  tag: 'gst-saddle',
+  styleUrl: 'gst-saddle.css'
 })
-export class GstBridge {
+export class GstSaddle {
 
-  @Prop() bridgeData: string = 'E|A|D|G|B|E';
+  @Prop() saddleData: string = 'E|A|D|G|B|E';
 
   @State() note1Data: string;
   @State() note2Data: string;
@@ -17,7 +17,7 @@ export class GstBridge {
 
   componentWillLoad() {
 
-    let splitRes = this.bridgeData.split('|');
+    let splitRes = this.saddleData.split('|');
     this.note1Data = splitRes[0];
     this.note2Data = splitRes[1];
     this.note3Data = splitRes[2];
@@ -28,13 +28,13 @@ export class GstBridge {
 
   render() {
     return [
-      <div id='bridgeGrid'>
-        <gst-bridgeslot noteData={this.note6Data} />
-        <gst-bridgeslot noteData={this.note5Data} />
-        <gst-bridgeslot noteData={this.note4Data} />
-        <gst-bridgeslot noteData={this.note3Data} />
-        <gst-bridgeslot noteData={this.note2Data} />
-        <gst-bridgeslot noteData={this.note1Data} />
+      <div id='saddleGrid'>
+        <gst-saddleslot noteData={this.note6Data} />
+        <gst-saddleslot noteData={this.note5Data} />
+        <gst-saddleslot noteData={this.note4Data} />
+        <gst-saddleslot noteData={this.note3Data} />
+        <gst-saddleslot noteData={this.note2Data} />
+        <gst-saddleslot noteData={this.note1Data} />
       </div>
     ];
   }

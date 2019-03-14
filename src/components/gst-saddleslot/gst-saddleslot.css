@@ -1,0 +1,38 @@
+.saddleSlotContainer {
+  position: relative;
+  height: 30px;
+  width: 50px;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
+.saddleBorders {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.saddleString {
+  position: absolute;
+  top: 45%;
+  left: -10px;
+  width: 115%;
+  border-top: 3px solid rgb(207, 207, 207);
+  z-index: 3;
+}
+
+.saddleNote {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}

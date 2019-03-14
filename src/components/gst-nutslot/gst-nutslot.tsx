@@ -1,10 +1,10 @@
 import { Component, Prop, State } from "@stencil/core";
 
 @Component({
-  tag: 'gst-bridgeslot',
-  styleUrl: 'gst-bridgeslot.css'
+  tag: 'gst-nutslot',
+  styleUrl: 'gst-nutslot.css'
 })
-export class GstBridgeslot {
+export class GstNutslot {
 
   @Prop() noteData: string;
 
@@ -31,10 +31,10 @@ export class GstBridgeslot {
 
   render() {
     return [
-      <div class='bridgeSlotContainer'>
-        <div class='bridgeBorders'></div>
-        <div class='bridgeString'></div>
-        <div class='bridgeNote'>
+      <div class='nutSlotContainer'>
+        <div class='nutBorders'></div>
+        <div class='nutString'></div>
+        <div class='nutNote'>
           <gst-fretnote noteName={this.noteName}
                         isShown={this.isShown}
                         isRoot={this.isRoot} />

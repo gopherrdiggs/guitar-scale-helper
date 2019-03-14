@@ -1,4 +1,4 @@
-#bridgeGrid {
+#nutGrid {
   display: grid;
   grid-template-rows: repeat(6, 30px);
   align-items: center;

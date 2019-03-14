@@ -6,12 +6,10 @@ import { Component, Listen } from '@stencil/core';
 })
 export class AppHome {
 
-  private constNotes = ['A','A#/Bb','B','C','C#/Db','D','D#/Eb','E','F','F#/Gb','G','G#/Ab'];
-
   @Listen('body:gstScaleSelected')
   async handleScaleSelected(event: any) {
-    console.log('Scale selected event: ', event);
 
+    console.log('Scale selected event: ', event);
     let key = await this.calculateKey(event.detail.root, event.detail.interval);
     console.log('Calculated key:', key);
   }
@@ -19,8 +17,8 @@ export class AppHome {
   // Given a root note and an interval definition, calculate the scale key
   async calculateKey(root: string, intervalDefinition: string) {
 
+    let allNotes = ['A','A#/Bb','B','C','C#/Db','D','D#/Eb','E','F','F#/Gb','G','G#/Ab'];
     let seedKeyNotes = ['A','B','C','D','E','F','G'];
-    let allNotes = [...this.constNotes];
 
     // Reposition items in the array, starting with closest to root note.
     // Every scale should have these notes in some fashion, possible flat or sharp.

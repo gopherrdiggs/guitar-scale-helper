@@ -21,7 +21,7 @@ export class GstFretboard {
         </ion-card-header>
         <ion-card-content padding>
           <div id='fretboardGrid'>
-            <gst-bridge bridgeData='E.|A*|D.|G.|B|E.' />
+            <gst-nut nutData='E.|A*|D.|G.|B|E.' />
             <gst-fret fretData='F|A#|D#|G#|C.|F' />
             <gst-fret fretData='F#|B|E|A|C#|F#' />
             <gst-fret />
@@ -43,7 +43,7 @@ export class GstFretboard {
             <gst-fret />
             <gst-fret />
             <gst-fret />
-            <gst-fret />
+            <gst-saddle />
           </div>
         </ion-card-content>
       </ion-card>

@@ -23,20 +23,6 @@ export namespace Components {
   interface AppRoot {}
   interface AppRootAttributes extends StencilHTMLAttributes {}
 
-  interface GstBridge {
-    'bridgeData': string;
-  }
-  interface GstBridgeAttributes extends StencilHTMLAttributes {
-    'bridgeData'?: string;
-  }
-
-  interface GstBridgeslot {
-    'noteData': string;
-  }
-  interface GstBridgeslotAttributes extends StencilHTMLAttributes {
-    'noteData'?: string;
-  }
-
   interface GstFret {
     'fretData': string;
   }
@@ -67,6 +53,34 @@ export namespace Components {
     'noteData'?: string;
   }
 
+  interface GstNut {
+    'nutData': string;
+  }
+  interface GstNutAttributes extends StencilHTMLAttributes {
+    'nutData'?: string;
+  }
+
+  interface GstNutslot {
+    'noteData': string;
+  }
+  interface GstNutslotAttributes extends StencilHTMLAttributes {
+    'noteData'?: string;
+  }
+
+  interface GstSaddle {
+    'saddleData': string;
+  }
+  interface GstSaddleAttributes extends StencilHTMLAttributes {
+    'saddleData'?: string;
+  }
+
+  interface GstSaddleslot {
+    'noteData': string;
+  }
+  interface GstSaddleslotAttributes extends StencilHTMLAttributes {
+    'noteData'?: string;
+  }
+
   interface GstScaleSelector {
     'getScaleInterval': () => Scale;
   }
@@ -92,12 +106,14 @@ declare global {
   interface StencilElementInterfaces {
     'AppHome': Components.AppHome;
     'AppRoot': Components.AppRoot;
-    'GstBridge': Components.GstBridge;
-    'GstBridgeslot': Components.GstBridgeslot;
     'GstFret': Components.GstFret;
     'GstFretboard': Components.GstFretboard;
     'GstFretnote': Components.GstFretnote;
     'GstFretslot': Components.GstFretslot;
+    'GstNut': Components.GstNut;
+    'GstNutslot': Components.GstNutslot;
+    'GstSaddle': Components.GstSaddle;
+    'GstSaddleslot': Components.GstSaddleslot;
     'GstScaleSelector': Components.GstScaleSelector;
     'GstModeSelectorModal': Components.GstModeSelectorModal;
     'GstRootSelectorModal': Components.GstRootSelectorModal;
@@ -107,12 +123,14 @@ declare global {
   interface StencilIntrinsicElements {
     'app-home': Components.AppHomeAttributes;
     'app-root': Components.AppRootAttributes;
-    'gst-bridge': Components.GstBridgeAttributes;
-    'gst-bridgeslot': Components.GstBridgeslotAttributes;
     'gst-fret': Components.GstFretAttributes;
     'gst-fretboard': Components.GstFretboardAttributes;
     'gst-fretnote': Components.GstFretnoteAttributes;
     'gst-fretslot': Components.GstFretslotAttributes;
+    'gst-nut': Components.GstNutAttributes;
+    'gst-nutslot': Components.GstNutslotAttributes;
+    'gst-saddle': Components.GstSaddleAttributes;
+    'gst-saddleslot': Components.GstSaddleslotAttributes;
     'gst-scale-selector': Components.GstScaleSelectorAttributes;
     'gst-mode-selector-modal': Components.GstModeSelectorModalAttributes;
     'gst-root-selector-modal': Components.GstRootSelectorModalAttributes;
@@ -130,18 +148,6 @@ declare global {
   var HTMLAppRootElement: {
     prototype: HTMLAppRootElement;
     new (): HTMLAppRootElement;
-  };
-
-  interface HTMLGstBridgeElement extends Components.GstBridge, HTMLStencilElement {}
-  var HTMLGstBridgeElement: {
-    prototype: HTMLGstBridgeElement;
-    new (): HTMLGstBridgeElement;
-  };
-
-  interface HTMLGstBridgeslotElement extends Components.GstBridgeslot, HTMLStencilElement {}
-  var HTMLGstBridgeslotElement: {
-    prototype: HTMLGstBridgeslotElement;
-    new (): HTMLGstBridgeslotElement;
   };
 
   interface HTMLGstFretElement extends Components.GstFret, HTMLStencilElement {}
@@ -166,6 +172,30 @@ declare global {
   var HTMLGstFretslotElement: {
     prototype: HTMLGstFretslotElement;
     new (): HTMLGstFretslotElement;
+  };
+
+  interface HTMLGstNutElement extends Components.GstNut, HTMLStencilElement {}
+  var HTMLGstNutElement: {
+    prototype: HTMLGstNutElement;
+    new (): HTMLGstNutElement;
+  };
+
+  interface HTMLGstNutslotElement extends Components.GstNutslot, HTMLStencilElement {}
+  var HTMLGstNutslotElement: {
+    prototype: HTMLGstNutslotElement;
+    new (): HTMLGstNutslotElement;
+  };
+
+  interface HTMLGstSaddleElement extends Components.GstSaddle, HTMLStencilElement {}
+  var HTMLGstSaddleElement: {
+    prototype: HTMLGstSaddleElement;
+    new (): HTMLGstSaddleElement;
+  };
+
+  interface HTMLGstSaddleslotElement extends Components.GstSaddleslot, HTMLStencilElement {}
+  var HTMLGstSaddleslotElement: {
+    prototype: HTMLGstSaddleslotElement;
+    new (): HTMLGstSaddleslotElement;
   };
 
   interface HTMLGstScaleSelectorElement extends Components.GstScaleSelector, HTMLStencilElement {}
@@ -195,12 +225,14 @@ declare global {
   interface HTMLElementTagNameMap {
     'app-home': HTMLAppHomeElement
     'app-root': HTMLAppRootElement
-    'gst-bridge': HTMLGstBridgeElement
-    'gst-bridgeslot': HTMLGstBridgeslotElement
     'gst-fret': HTMLGstFretElement
     'gst-fretboard': HTMLGstFretboardElement
     'gst-fretnote': HTMLGstFretnoteElement
     'gst-fretslot': HTMLGstFretslotElement
+    'gst-nut': HTMLGstNutElement
+    'gst-nutslot': HTMLGstNutslotElement
+    'gst-saddle': HTMLGstSaddleElement
+    'gst-saddleslot': HTMLGstSaddleslotElement
     'gst-scale-selector': HTMLGstScaleSelectorElement
     'gst-mode-selector-modal': HTMLGstModeSelectorModalElement
     'gst-root-selector-modal': HTMLGstRootSelectorModalElement
@@ -210,12 +242,14 @@ declare global {
   interface ElementTagNameMap {
     'app-home': HTMLAppHomeElement;
     'app-root': HTMLAppRootElement;
-    'gst-bridge': HTMLGstBridgeElement;
-    'gst-bridgeslot': HTMLGstBridgeslotElement;
     'gst-fret': HTMLGstFretElement;
     'gst-fretboard': HTMLGstFretboardElement;
     'gst-fretnote': HTMLGstFretnoteElement;
     'gst-fretslot': HTMLGstFretslotElement;
+    'gst-nut': HTMLGstNutElement;
+    'gst-nutslot': HTMLGstNutslotElement;
+    'gst-saddle': HTMLGstSaddleElement;
+    'gst-saddleslot': HTMLGstSaddleslotElement;
     'gst-scale-selector': HTMLGstScaleSelectorElement;
     'gst-mode-selector-modal': HTMLGstModeSelectorModalElement;
     'gst-root-selector-modal': HTMLGstRootSelectorModalElement;
