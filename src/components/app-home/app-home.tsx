@@ -1,4 +1,4 @@
-import { Component, Listen, State } from '@stencil/core';
+import { Component, Listen } from '@stencil/core';
 
 @Component({
   tag: 'app-home',
@@ -6,22 +6,23 @@ import { Component, Listen, State } from '@stencil/core';
 })
 export class AppHome {
 
-  @State() currentRoot: string = 'E';
-  @State() currentKey: string = 'C|D|E|F|G|A|B|C';
   private constNotes = ['A','A#/Bb','B','C','C#/Db','D','D#/Eb','E','F','F#/Gb','G','G#/Ab'];
 
   @Listen('body:gstScaleSelected')
   async handleScaleSelected(event: any) {
     console.log('Scale selected event: ', event);
 
-    await this.calculateKey(this.currentRoot, event.detail.selectedScale);
+    await this.calculateKey(event.detail.root, event.detail.interval);
   }
 
   // Given a root note and an interval definition, calculate the scale key
   async calculateKey(root: string, intervalDefinition: string) {
 
+    console.log('root', root);
+    console.log('intervalDefinition', intervalDefinition);
     let seedKeyNotes = ['A','B','C','D','E','F','G'];
-    let allNotes = this.constNotes;
+    let allNotes = [...this.constNotes];
+    console.log('allNotes', allNotes);
 
     // Reposition items in the array, starting with closest to root note.
     // Every scale should have these notes in some fashion, possible flat or sharp.
@@ -47,16 +48,14 @@ export class AppHome {
     let keyNotes = [root];
     let intervalArray = intervalDefinition.split('|');
 
-    // Shift out the notes from arrays as they are no longer needed.
+    // Shift out the notes from arrays when no longer needed.
     seedKeyNotes.shift();
     allNotes.shift();
     intervalArray.shift();
 
-    // let loopCount = intervalArray.length;
     let intervalToneNumber = 2;
     let noteToAdd = '';
 
-    // for (let i = 0; i < loopCount; i++) {
     while (intervalArray.length > 0) {
             
       if (intervalArray[0] !== '-') {
@@ -67,9 +66,11 @@ export class AppHome {
         while (intervalArray[0].indexOf(intervalToneNumber.toString()) == -1) {
           
           seedKeyNotes.shift();
-          allNotes.shift();
           intervalToneNumber = intervalToneNumber + 1;
         }
+
+        console.log('intervalArray[0]', intervalArray[0]);
+
         
         if (intervalArray[0].indexOf('s') > -1) {
           // Interval declares this note to be sharp
@@ -99,6 +100,7 @@ export class AppHome {
       intervalArray.shift();
     }
 
+    console.log('keyNotes', keyNotes.join('|'));
     return keyNotes.join('|');
   }
 
