@@ -20,7 +20,6 @@ export class AppHome {
   // Given a root note and an interval definition, calculate the scale key
   async calculateKey(root: string, intervalDefinition: string) {
 
-    console.log('intervalDefinition', intervalDefinition);
     let seedKeyNotes = ['A','B','C','D','E','F','G'];
     let allNotes = this.constNotes;
 
@@ -29,7 +28,6 @@ export class AppHome {
     while (root.indexOf(seedKeyNotes[0]) == -1) {
       seedKeyNotes.push(seedKeyNotes.shift());
     }
-    console.log('seedKeyNotes', seedKeyNotes);
 
     for (let i = 0; i < 12; i++) {
 
@@ -45,7 +43,6 @@ export class AppHome {
       
       allNotes.push(allNotes.shift());
     }
-    console.log('allNotes', allNotes);
 
     let keyNotes = [root];
     let intervalArray = intervalDefinition.split('|');
@@ -55,23 +52,23 @@ export class AppHome {
     allNotes.shift();
     intervalArray.shift();
 
-    let loopCount = intervalArray.length;
-    let intervalToneNumber = 1;
+    // let loopCount = intervalArray.length;
+    let intervalToneNumber = 2;
     let noteToAdd = '';
 
-    for (let i = 0; i < loopCount; i++) {
-
-      console.log('allNotes', allNotes);
-      console.log('seedKeyNotes', seedKeyNotes);
-      console.log('keyNotes', keyNotes);
-
+    // for (let i = 0; i < loopCount; i++) {
+    while (intervalArray.length > 0) {
+            
       if (intervalArray[0] !== '-') {
 
         noteToAdd = '';
         
-        if (intervalArray[0].indexOf(intervalToneNumber.toString()) == -1) {
+        // For interval definitions that skip tones...
+        while (intervalArray[0].indexOf(intervalToneNumber.toString()) == -1) {
+          
           seedKeyNotes.shift();
           allNotes.shift();
+          intervalToneNumber = intervalToneNumber + 1;
         }
         
         if (intervalArray[0].indexOf('s') > -1) {
@@ -95,14 +92,13 @@ export class AppHome {
 
         keyNotes.push(noteToAdd);
         seedKeyNotes.shift();
+        intervalToneNumber = intervalToneNumber + 1;
       }
 
       allNotes.shift();
       intervalArray.shift();
-      intervalToneNumber = intervalToneNumber + 1;
     }
 
-    console.log('Key notes:', keyNotes);
     return keyNotes.join('|');
   }
 
