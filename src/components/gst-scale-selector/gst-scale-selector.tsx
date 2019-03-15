@@ -1,5 +1,5 @@
 import { Component, Event, EventEmitter, Method, State } from "@stencil/core";
-import { Scale, ScaleMode } from "../../interfaces";
+import { Scale, ScaleMode, ScaleCategory } from "../../interfaces";
 
 @Component({
   tag: 'gst-scale-selector',
@@ -15,6 +15,18 @@ export class GstScaleSelector {
   @State() selectedMode: ScaleMode;
 
   private modalController: HTMLIonModalControllerElement;
+
+  async componentWillLoad() {
+    
+    let getScaleDataResponse = await fetch('/assets/data/scaleData.json');
+    let scaleCategories: ScaleCategory[] = await getScaleDataResponse.json();
+    this.selectedScale = scaleCategories[0].scales[0];
+    this.selectedMode = this.selectedScale.modes[0];
+    this.gstScaleSelected.emit({
+      root: this.selectedRoot,
+      interval: this.selectedMode.intervalDefinition
+    });
+  }
 
   componentDidLoad() {
 

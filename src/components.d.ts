@@ -24,18 +24,17 @@ export namespace Components {
   interface AppRootAttributes extends StencilHTMLAttributes {}
 
   interface GstFret {
+    'load': (keyNotes: string, noteData: string) => Promise<void>;
     'markerNumber': string;
-    'noteData': string;
     'showMarker': boolean;
   }
   interface GstFretAttributes extends StencilHTMLAttributes {
     'markerNumber'?: string;
-    'noteData'?: string;
     'showMarker'?: boolean;
   }
 
   interface GstFretboard {
-    'loadScale': () => Promise<void>;
+    'load': (keyNotes: string) => Promise<void>;
   }
   interface GstFretboardAttributes extends StencilHTMLAttributes {}
 
@@ -49,50 +48,27 @@ export namespace Components {
   }
 
   interface GstFretnote {
-    'isRoot': boolean;
-    'isShown': boolean;
-    'noteName': string;
+    'hide': () => Promise<void>;
+    'hideNoteName': () => Promise<void>;
+    'load': (noteName: string, isShown: boolean, isRoot: boolean) => Promise<void>;
+    'show': () => Promise<void>;
   }
-  interface GstFretnoteAttributes extends StencilHTMLAttributes {
-    'isRoot'?: boolean;
-    'isShown'?: boolean;
-    'noteName'?: string;
-  }
+  interface GstFretnoteAttributes extends StencilHTMLAttributes {}
 
   interface GstFretslot {
-    'noteData': string;
+    'load': (noteData: string) => Promise<void>;
   }
-  interface GstFretslotAttributes extends StencilHTMLAttributes {
-    'noteData'?: string;
-  }
+  interface GstFretslotAttributes extends StencilHTMLAttributes {}
 
   interface GstNut {
-    'noteData': string;
+    'load': (keyNotes: string, noteData: string) => Promise<void>;
   }
-  interface GstNutAttributes extends StencilHTMLAttributes {
-    'noteData'?: string;
-  }
+  interface GstNutAttributes extends StencilHTMLAttributes {}
 
   interface GstNutslot {
-    'noteData': string;
+    'load': (noteData: string) => Promise<void>;
   }
-  interface GstNutslotAttributes extends StencilHTMLAttributes {
-    'noteData'?: string;
-  }
-
-  interface GstSaddle {
-    'noteData': string;
-  }
-  interface GstSaddleAttributes extends StencilHTMLAttributes {
-    'noteData'?: string;
-  }
-
-  interface GstSaddleslot {
-    'noteData': string;
-  }
-  interface GstSaddleslotAttributes extends StencilHTMLAttributes {
-    'noteData'?: string;
-  }
+  interface GstNutslotAttributes extends StencilHTMLAttributes {}
 
   interface GstScaleSelector {
     'getScaleInterval': () => Scale;
@@ -126,8 +102,6 @@ declare global {
     'GstFretslot': Components.GstFretslot;
     'GstNut': Components.GstNut;
     'GstNutslot': Components.GstNutslot;
-    'GstSaddle': Components.GstSaddle;
-    'GstSaddleslot': Components.GstSaddleslot;
     'GstScaleSelector': Components.GstScaleSelector;
     'GstModeSelectorModal': Components.GstModeSelectorModal;
     'GstRootSelectorModal': Components.GstRootSelectorModal;
@@ -144,8 +118,6 @@ declare global {
     'gst-fretslot': Components.GstFretslotAttributes;
     'gst-nut': Components.GstNutAttributes;
     'gst-nutslot': Components.GstNutslotAttributes;
-    'gst-saddle': Components.GstSaddleAttributes;
-    'gst-saddleslot': Components.GstSaddleslotAttributes;
     'gst-scale-selector': Components.GstScaleSelectorAttributes;
     'gst-mode-selector-modal': Components.GstModeSelectorModalAttributes;
     'gst-root-selector-modal': Components.GstRootSelectorModalAttributes;
@@ -207,18 +179,6 @@ declare global {
     new (): HTMLGstNutslotElement;
   };
 
-  interface HTMLGstSaddleElement extends Components.GstSaddle, HTMLStencilElement {}
-  var HTMLGstSaddleElement: {
-    prototype: HTMLGstSaddleElement;
-    new (): HTMLGstSaddleElement;
-  };
-
-  interface HTMLGstSaddleslotElement extends Components.GstSaddleslot, HTMLStencilElement {}
-  var HTMLGstSaddleslotElement: {
-    prototype: HTMLGstSaddleslotElement;
-    new (): HTMLGstSaddleslotElement;
-  };
-
   interface HTMLGstScaleSelectorElement extends Components.GstScaleSelector, HTMLStencilElement {}
   var HTMLGstScaleSelectorElement: {
     prototype: HTMLGstScaleSelectorElement;
@@ -253,8 +213,6 @@ declare global {
     'gst-fretslot': HTMLGstFretslotElement
     'gst-nut': HTMLGstNutElement
     'gst-nutslot': HTMLGstNutslotElement
-    'gst-saddle': HTMLGstSaddleElement
-    'gst-saddleslot': HTMLGstSaddleslotElement
     'gst-scale-selector': HTMLGstScaleSelectorElement
     'gst-mode-selector-modal': HTMLGstModeSelectorModalElement
     'gst-root-selector-modal': HTMLGstRootSelectorModalElement
@@ -271,8 +229,6 @@ declare global {
     'gst-fretslot': HTMLGstFretslotElement;
     'gst-nut': HTMLGstNutElement;
     'gst-nutslot': HTMLGstNutslotElement;
-    'gst-saddle': HTMLGstSaddleElement;
-    'gst-saddleslot': HTMLGstSaddleslotElement;
     'gst-scale-selector': HTMLGstScaleSelectorElement;
     'gst-mode-selector-modal': HTMLGstModeSelectorModalElement;
     'gst-root-selector-modal': HTMLGstRootSelectorModalElement;

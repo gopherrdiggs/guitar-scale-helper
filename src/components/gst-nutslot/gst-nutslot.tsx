@@ -1,4 +1,4 @@
-import { Component, Prop, State } from "@stencil/core";
+import { Component, Element, State, Method } from "@stencil/core";
 
 @Component({
   tag: 'gst-nutslot',
@@ -6,27 +6,28 @@ import { Component, Prop, State } from "@stencil/core";
 })
 export class GstNutslot {
 
-  @Prop() noteData: string;
-
+  @Element() el: HTMLGstNutslotElement;
   @State() noteName: string;
   @State() isShown: boolean;
   @State() isRoot: boolean;
   
-  componentWillLoad() {
+  @Method()
+  async load(noteData: string) {
 
-    let data = this.noteData;
-    let indx = data.indexOf('*');
-    if (indx > 0) {
-      this.isRoot = true;
-      this.isShown = true;
-      data = data.replace('*', '');
+    // console.log('loading nutslot...', noteData);
+
+    if (noteData.indexOf('*') > 0) {
+      let noteElem = this.el.querySelector('gst-fretnote') as HTMLGstFretnoteElement;
+      await noteElem.load(noteData.replace('*', ''), true, true);
     }
-    indx = data.indexOf('.');
-    if (indx > 0) {
-      this.isShown = true;
-      data = data.replace('.', '');
+    else if (noteData.indexOf('.') > 0) {
+      let noteElem = this.el.querySelector('gst-fretnote') as HTMLGstFretnoteElement;
+      await noteElem.load(noteData.replace('.', ''), true, false);
     }
-    this.noteName = data;
+    else {
+      let noteElem = this.el.querySelector('gst-fretnote') as HTMLGstFretnoteElement;
+      await noteElem.load(noteData, false, false);
+    }
   }
 
   render() {
@@ -34,9 +35,7 @@ export class GstNutslot {
       <div class='nutSlotContainer'>
         <div class='nutString'></div>
         <div class='nutNote'>
-          <gst-fretnote noteName={this.noteName}
-                        isShown={this.isShown}
-                        isRoot={this.isRoot} />
+          <gst-fretnote />
         </div>
       </div>
     ];

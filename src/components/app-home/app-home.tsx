@@ -1,4 +1,4 @@
-import { Component, Listen } from '@stencil/core';
+import { Component, Element, Listen } from '@stencil/core';
 
 @Component({
   tag: 'app-home',
@@ -6,12 +6,16 @@ import { Component, Listen } from '@stencil/core';
 })
 export class AppHome {
 
+  @Element() el: HTMLAppHomeElement;
   @Listen('body:gstScaleSelected')
   async handleScaleSelected(event: any) {
 
     console.log('Scale selected event: ', event);
     let key = await this.calculateKey(event.detail.root, event.detail.interval);
     console.log('Calculated key:', key);
+
+    let fretboard = this.el.querySelector('gst-fretboard');
+    await fretboard.load(key);
   }
 
   // Given a root note and an interval definition, calculate the scale key
@@ -21,7 +25,6 @@ export class AppHome {
     let seedKeyNotes = ['A','B','C','D','E','F','G'];
 
     // Reposition items in the array, starting with closest to root note.
-    // Every scale should have these notes in some fashion, possible flat or sharp.
     while (root.indexOf(seedKeyNotes[0]) == -1) {
       seedKeyNotes.push(seedKeyNotes.shift());
     }
@@ -64,16 +67,8 @@ export class AppHome {
           seedKeyNotes.shift();
           intervalToneNumber = intervalToneNumber + 1;
         }
-        
-        if (intervalArray[0].indexOf('s') > -1) {
-          // Interval declares this note to be sharp
-          noteToAdd = seedKeyNotes[0] + '#';
-        }
-        else if (intervalArray[0].indexOf('b') > -1) {
-          // Interval declares this note to be flat
-          noteToAdd = seedKeyNotes[0] + 'b';
-        }
-        else if (allNotes[0].indexOf('/') > -1) {
+
+        if (allNotes[0].indexOf('/') > -1) {
           // Need to pull either the sharp or flat version of the note
           let noteSplit = allNotes[0].split('/');
           noteToAdd = noteSplit[0].indexOf(seedKeyNotes[0]) > -1 
@@ -105,7 +100,7 @@ export class AppHome {
       </ion-header>,
       <ion-content no-padding>
         <gst-scale-selector></gst-scale-selector>
-        <gst-fretboard></gst-fretboard>
+        <gst-fretboard id='fretboard'></gst-fretboard>
       </ion-content>
     ];
   }

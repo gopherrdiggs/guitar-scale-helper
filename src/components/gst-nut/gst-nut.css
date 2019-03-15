@@ -3,13 +3,12 @@
   grid-template-rows: repeat(8, 30px);
   align-items: center;
   justify-content: center;
-  /* border-right: 2px solid rgb(190, 190, 190); */
 }
 
 .nutTopBorder > .nutSlotContainer {
-  border-top-left-radius: 6px;
+  border-top-left-radius: 15px;
 }
 
 .nutBottomBorder > .nutSlotContainer {
-  border-bottom-left-radius: 6px;
+  border-bottom-left-radius: 15px;
 }

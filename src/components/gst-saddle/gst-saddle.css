@@ -1,6 +1,0 @@
-#saddleGrid {
-  display: grid;
-  grid-template-rows: repeat(8, 30px);
-  align-items: center;
-  justify-content: center;
-}

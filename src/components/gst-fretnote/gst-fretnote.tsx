@@ -1,4 +1,4 @@
-import { Component, Prop, State } from "@stencil/core";
+import { Component, State, Method } from "@stencil/core";
 
 @Component({
   tag: 'gst-fretnote',
@@ -6,37 +6,56 @@ import { Component, Prop, State } from "@stencil/core";
 })
 export class GstFretnote {
 
-  @Prop() noteName: string;
-  @Prop() isShown: boolean;
-  @Prop() isRoot: boolean;
-
-  @State() _isShown: boolean;
-  @State() _buttonColor: string;
-  @State() _buttonFill: string;
+  @State() noteName: string;
+  @State() isShown: boolean = false;
+  @State() isRoot: boolean;
+  @State() buttonColor: string;
+  @State() buttonFill: string;
 
   componentWillLoad() {
-
-    this._isShown = this.isShown;
 
     this.setButtonStyle();
   }
 
+  @Method()
+  async load(noteName: string, isShown: boolean, isRoot: boolean) {
+    this.isShown = isShown;
+    this.isRoot = isRoot;
+    this.noteName = noteName.replace('b', '\u266D').replace('#', '\u266F');
+    this.setButtonStyle();
+  }
+
+  @Method()
+  async hide() {
+    this.isShown = false;
+  }
+
+  @Method()
+  async show() {
+    this.isShown = true;
+    this.setButtonStyle();
+  }
+
+  @Method()
+  async hideNoteName() {
+    this.noteName = '';
+  }
+
   setButtonStyle() {
 
-    if (this._isShown) {
-      this._buttonFill = 'solid';
-      this._buttonColor =  this.isRoot ? 'primary' : 'secondary';
+    if (this.isShown) {
+      this.buttonFill = 'solid';
+      this.buttonColor =  this.isRoot ? 'primary' : 'secondary';
     }
     else {
-      this._buttonFill = 'clear';
-      this._buttonColor = 'primary';
+      this.buttonFill = 'clear';
+      this.buttonColor = 'primary';
     }
   }
 
   handleNoteClick() {
 
-    this._isShown = !this._isShown;
-
+    this.isShown = !this.isShown;
     this.setButtonStyle();
   }
 
@@ -44,8 +63,8 @@ export class GstFretnote {
     return [
       <ion-button class='fretNoteButton' 
                   size='small' shape='round'
-                  fill={this._buttonFill === 'clear' ? 'clear' : 'solid'}
-                  color={this._buttonColor}
+                  fill={this.buttonFill === 'clear' ? 'clear' : 'solid'}
+                  color={this.buttonColor}
                   onClick={()=>this.handleNoteClick()}>
         {this.noteName}
       </ion-button>

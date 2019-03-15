@@ -1,4 +1,4 @@
-import { Component, Prop, State } from "@stencil/core";
+import { Component, Element, Method, State } from "@stencil/core";
 
 @Component({
   tag: 'gst-nut',
@@ -6,8 +6,7 @@ import { Component, Prop, State } from "@stencil/core";
 })
 export class GstNut {
 
-  @Prop() noteData: string = 'E|A|D|G|B|E';
-
+  @Element() el: HTMLGstNutElement;
   @State() note1Data: string;
   @State() note2Data: string;
   @State() note3Data: string;
@@ -15,27 +14,78 @@ export class GstNut {
   @State() note5Data: string;
   @State() note6Data: string;
 
-  componentWillLoad() {
+  @Method()
+  async load(keyNotes: string, noteData: string) {
 
-    let splitRes = this.noteData.split('|');
-    this.note1Data = splitRes[0];
-    this.note2Data = splitRes[1];
-    this.note3Data = splitRes[2];
-    this.note4Data = splitRes[3];
-    this.note5Data = splitRes[4];
-    this.note6Data = splitRes[5];
+    console.log('nut loading...', noteData);
+    let keyNotesSplit = keyNotes.split('|');
+    let noteDataSplit = noteData.split('|');
+
+    let nutSlotElems = this.el.getElementsByTagName('gst-nutslot');
+
+    for (let i = 0; i < nutSlotElems.length; i++) {
+
+      if (noteDataSplit[i] === keyNotesSplit[0]) {
+        // Note is the root
+        await nutSlotElems[i].load(noteDataSplit[i] + '*');
+      }
+      else if (this.arrayContains(keyNotesSplit, noteDataSplit[i])) {
+        // Note is in key
+        await nutSlotElems[i].load(noteDataSplit[i] + '.');
+      }
+      else if (this.noteIsSharpOrFlat(noteDataSplit[i])
+        && this.arrayContains(keyNotesSplit, this.getEquivalentNoteName(noteDataSplit[i]))) {
+        
+        // Note is in key under a different name
+        await nutSlotElems[i].load(noteDataSplit[i] + '.');
+      }
+      else {
+        await nutSlotElems[i].load(noteDataSplit[i]);
+      }
+    }
+  }
+
+  noteIsSharpOrFlat(note: string) {
+    return note.indexOf('b') > -1 || note.indexOf('#') > -1;
+  }
+
+  getEquivalentNoteName(note: string) {
+
+    switch (note) {
+      case 'A#': return 'Bb';
+      case 'Bb': return 'A#';
+      case 'C#': return 'Db';
+      case 'Db': return 'C#';
+      case 'D#': return 'Eb';
+      case 'Eb': return 'D#';
+      case 'F#': return 'Gb';
+      case 'Gb': return 'F#';
+      case 'G#': return 'Ab';
+      case 'Ab': return 'G#';
+    }
+  }
+
+  arrayContains(array: string[], search: string): boolean {
+
+    for (let i = 0; i < array.length; i++) {
+      if (array[i] === search) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   render() {
     return [
       <div id='nutGrid'>
         <div></div>
-        <gst-nutslot noteData={this.note6Data} class='nutTopBorder' />
-        <gst-nutslot noteData={this.note5Data} />
-        <gst-nutslot noteData={this.note4Data} />
-        <gst-nutslot noteData={this.note3Data} />
-        <gst-nutslot noteData={this.note2Data} />
-        <gst-nutslot noteData={this.note1Data} class='nutBottomBorder' />
+        <gst-nutslot class='nutTopBorder' />
+        <gst-nutslot />
+        <gst-nutslot />
+        <gst-nutslot />
+        <gst-nutslot />
+        <gst-nutslot class='nutBottomBorder' />
         <div></div>
       </div>
     ];
