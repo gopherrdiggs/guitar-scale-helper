@@ -6,7 +6,7 @@ import { Component, Prop, State } from "@stencil/core";
 })
 export class GstSaddle {
 
-  @Prop() saddleData: string = 'E|A|D|G|B|E';
+  @Prop() noteData: string = 'E|A|D|G|B|E';
 
   @State() note1Data: string;
   @State() note2Data: string;
@@ -17,7 +17,7 @@ export class GstSaddle {
 
   componentWillLoad() {
 
-    let splitRes = this.saddleData.split('|');
+    let splitRes = this.noteData.split('|');
     this.note1Data = splitRes[0];
     this.note2Data = splitRes[1];
     this.note3Data = splitRes[2];
@@ -29,12 +29,14 @@ export class GstSaddle {
   render() {
     return [
       <div id='saddleGrid'>
+        <gst-fretmarker />
         <gst-saddleslot noteData={this.note6Data} />
         <gst-saddleslot noteData={this.note5Data} />
         <gst-saddleslot noteData={this.note4Data} />
         <gst-saddleslot noteData={this.note3Data} />
         <gst-saddleslot noteData={this.note2Data} />
         <gst-saddleslot noteData={this.note1Data} />
+        <gst-fretmarker />
       </div>
     ];
   }

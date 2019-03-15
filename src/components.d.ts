@@ -24,16 +24,29 @@ export namespace Components {
   interface AppRootAttributes extends StencilHTMLAttributes {}
 
   interface GstFret {
-    'fretData': string;
+    'markerNumber': string;
+    'noteData': string;
+    'showMarker': boolean;
   }
   interface GstFretAttributes extends StencilHTMLAttributes {
-    'fretData'?: string;
+    'markerNumber'?: string;
+    'noteData'?: string;
+    'showMarker'?: boolean;
   }
 
   interface GstFretboard {
     'loadScale': () => Promise<void>;
   }
   interface GstFretboardAttributes extends StencilHTMLAttributes {}
+
+  interface GstFretmarker {
+    'markerNumber': string;
+    'position': string;
+  }
+  interface GstFretmarkerAttributes extends StencilHTMLAttributes {
+    'markerNumber'?: string;
+    'position'?: string;
+  }
 
   interface GstFretnote {
     'isRoot': boolean;
@@ -54,10 +67,10 @@ export namespace Components {
   }
 
   interface GstNut {
-    'nutData': string;
+    'noteData': string;
   }
   interface GstNutAttributes extends StencilHTMLAttributes {
-    'nutData'?: string;
+    'noteData'?: string;
   }
 
   interface GstNutslot {
@@ -68,10 +81,10 @@ export namespace Components {
   }
 
   interface GstSaddle {
-    'saddleData': string;
+    'noteData': string;
   }
   interface GstSaddleAttributes extends StencilHTMLAttributes {
-    'saddleData'?: string;
+    'noteData'?: string;
   }
 
   interface GstSaddleslot {
@@ -108,6 +121,7 @@ declare global {
     'AppRoot': Components.AppRoot;
     'GstFret': Components.GstFret;
     'GstFretboard': Components.GstFretboard;
+    'GstFretmarker': Components.GstFretmarker;
     'GstFretnote': Components.GstFretnote;
     'GstFretslot': Components.GstFretslot;
     'GstNut': Components.GstNut;
@@ -125,6 +139,7 @@ declare global {
     'app-root': Components.AppRootAttributes;
     'gst-fret': Components.GstFretAttributes;
     'gst-fretboard': Components.GstFretboardAttributes;
+    'gst-fretmarker': Components.GstFretmarkerAttributes;
     'gst-fretnote': Components.GstFretnoteAttributes;
     'gst-fretslot': Components.GstFretslotAttributes;
     'gst-nut': Components.GstNutAttributes;
@@ -160,6 +175,12 @@ declare global {
   var HTMLGstFretboardElement: {
     prototype: HTMLGstFretboardElement;
     new (): HTMLGstFretboardElement;
+  };
+
+  interface HTMLGstFretmarkerElement extends Components.GstFretmarker, HTMLStencilElement {}
+  var HTMLGstFretmarkerElement: {
+    prototype: HTMLGstFretmarkerElement;
+    new (): HTMLGstFretmarkerElement;
   };
 
   interface HTMLGstFretnoteElement extends Components.GstFretnote, HTMLStencilElement {}
@@ -227,6 +248,7 @@ declare global {
     'app-root': HTMLAppRootElement
     'gst-fret': HTMLGstFretElement
     'gst-fretboard': HTMLGstFretboardElement
+    'gst-fretmarker': HTMLGstFretmarkerElement
     'gst-fretnote': HTMLGstFretnoteElement
     'gst-fretslot': HTMLGstFretslotElement
     'gst-nut': HTMLGstNutElement
@@ -244,6 +266,7 @@ declare global {
     'app-root': HTMLAppRootElement;
     'gst-fret': HTMLGstFretElement;
     'gst-fretboard': HTMLGstFretboardElement;
+    'gst-fretmarker': HTMLGstFretmarkerElement;
     'gst-fretnote': HTMLGstFretnoteElement;
     'gst-fretslot': HTMLGstFretslotElement;
     'gst-nut': HTMLGstNutElement;

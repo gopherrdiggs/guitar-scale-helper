@@ -21,28 +21,29 @@ export class GstFretboard {
         </ion-card-header>
         <ion-card-content padding>
           <div id='fretboardGrid'>
-            <gst-nut nutData='E.|A*|D.|G.|B|E.' />
-            <gst-fret fretData='F|A#|D#|G#|C.|F' />
-            <gst-fret fretData='F#|B|E|A|C#|F#' />
+            <gst-nut noteData='E.|A*|D.|G.|B|E.' />
+            <gst-fret noteData='F|A#|D#|G#|C.|F' />
+            <gst-fret noteData='F#|B|E|A|C#|F#' />
+            <gst-fret showMarker markerNumber='3' />
+            <gst-fret />
+            <gst-fret showMarker markerNumber='5' />
+            <gst-fret />
+            <gst-fret showMarker markerNumber='7' />
+            <gst-fret />
+            <gst-fret showMarker markerNumber='9' />
             <gst-fret />
             <gst-fret />
+            <gst-fret showMarker markerNumber='12' />
             <gst-fret />
             <gst-fret />
+            <gst-fret showMarker markerNumber='15' />
             <gst-fret />
+            <gst-fret showMarker markerNumber='17' />
             <gst-fret />
+            <gst-fret showMarker markerNumber='19' />
             <gst-fret />
-            <gst-fret />
-            <gst-fret />
-            <gst-fret />
-            <gst-fret />
-            <gst-fret />
-            <gst-fret />
-            <gst-fret />
-            <gst-fret />
-            <gst-fret />
-            <gst-fret />
-            <gst-fret />
-            <gst-fret />
+            <gst-fret showMarker markerNumber='21' />
+            <gst-fret noteData='F|A#|D#|G#|C.|F' />
             <gst-saddle />
           </div>
         </ion-card-content>

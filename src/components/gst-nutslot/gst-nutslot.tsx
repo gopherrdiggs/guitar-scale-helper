@@ -32,7 +32,6 @@ export class GstNutslot {
   render() {
     return [
       <div class='nutSlotContainer'>
-        <div class='nutBorders'></div>
         <div class='nutString'></div>
         <div class='nutNote'>
           <gst-fretnote noteName={this.noteName}

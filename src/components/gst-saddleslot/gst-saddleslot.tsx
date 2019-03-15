@@ -32,7 +32,6 @@ export class GstSaddleslot {
   render() {
     return [
       <div class='saddleSlotContainer'>
-        <div class='saddleBorders'></div>
         <div class='saddleString'></div>
         <div class='saddleNote'>
           <gst-fretnote noteName={this.noteName}

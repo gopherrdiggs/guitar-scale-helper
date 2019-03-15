@@ -1,0 +1,32 @@
+.nutSlotContainer {
+  position: relative;
+  height: 30px;
+  width: 60px;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  border-right: 2px solid rgb(190, 190, 190);
+  background-color: rgb(182, 171, 142);
+  
+}
+
+.nutString {
+  position: absolute;
+  top: 45%;
+  left: 0px;
+  width: 100%;
+  border-top: 3px solid rgb(207, 207, 207);
+  z-index: 3;
+}
+
+.nutNote {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}

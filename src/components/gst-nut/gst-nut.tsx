@@ -6,7 +6,7 @@ import { Component, Prop, State } from "@stencil/core";
 })
 export class GstNut {
 
-  @Prop() nutData: string = 'E|A|D|G|B|E';
+  @Prop() noteData: string = 'E|A|D|G|B|E';
 
   @State() note1Data: string;
   @State() note2Data: string;
@@ -17,7 +17,7 @@ export class GstNut {
 
   componentWillLoad() {
 
-    let splitRes = this.nutData.split('|');
+    let splitRes = this.noteData.split('|');
     this.note1Data = splitRes[0];
     this.note2Data = splitRes[1];
     this.note3Data = splitRes[2];
@@ -29,12 +29,14 @@ export class GstNut {
   render() {
     return [
       <div id='nutGrid'>
-        <gst-nutslot noteData={this.note6Data} />
+        <div></div>
+        <gst-nutslot noteData={this.note6Data} class='nutTopBorder' />
         <gst-nutslot noteData={this.note5Data} />
         <gst-nutslot noteData={this.note4Data} />
         <gst-nutslot noteData={this.note3Data} />
         <gst-nutslot noteData={this.note2Data} />
-        <gst-nutslot noteData={this.note1Data} />
+        <gst-nutslot noteData={this.note1Data} class='nutBottomBorder' />
+        <div></div>
       </div>
     ];
   }

@@ -6,7 +6,9 @@ import { Component, Prop, State } from "@stencil/core";
 })
 export class GstFret {
 
-  @Prop() fretData: string = 'E|A|D|G|B|E';
+  @Prop() noteData: string = 'E|A|D|G|B|E';
+  @Prop() showMarker: boolean;
+  @Prop() markerNumber: string;
 
   @State() note1Data: string;
   @State() note2Data: string;
@@ -17,7 +19,7 @@ export class GstFret {
 
   componentWillLoad() {
 
-    let splitRes = this.fretData.split('|');
+    let splitRes = this.noteData.split('|');
     this.note1Data = splitRes[0];
     this.note2Data = splitRes[1];
     this.note3Data = splitRes[2];
@@ -29,12 +31,14 @@ export class GstFret {
   render() {
     return [
       <div id='fretGrid'>
+        { this.showMarker ? <gst-fretmarker markerNumber={this.markerNumber} /> : <div /> }
         <gst-fretslot noteData={this.note6Data} />
         <gst-fretslot noteData={this.note5Data} />
         <gst-fretslot noteData={this.note4Data} />
         <gst-fretslot noteData={this.note3Data} />
         <gst-fretslot noteData={this.note2Data} />
         <gst-fretslot noteData={this.note1Data} />
+        { this.showMarker ? <gst-fretmarker markerNumber={this.markerNumber} position='bottom' /> : <div /> }
       </div>
     ];
   }

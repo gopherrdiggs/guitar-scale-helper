@@ -32,7 +32,6 @@ export class GstFretslot {
   render() {
     return [
       <div class='fretSlotContainer'>
-        <div class='fretBorders'></div>
         <div class='fretString'></div>
         <div class='fretNote'>
           <gst-fretnote noteName={this.noteName}

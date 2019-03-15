@@ -1,7 +1,7 @@
 #fretboardGrid {
   display: grid;
-  grid-template-columns: 50px 71px 70px 69px 68px 67px 66px 65px 64px 63px 62px 61px 60px 59px 58px 57px 56px 55px 54px 53px 52px 51px 50px;
-  grid-template-rows: 180px;
+  grid-template-columns: repeat(24, 60px);
+  grid-template-rows: 240px;
   background-color: #fff;
   padding-top: 15px;
   padding-bottom: 15px;
