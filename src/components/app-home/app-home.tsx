@@ -95,7 +95,7 @@ export class AppHome {
     return [
       <ion-header>
         <ion-toolbar color="primary">
-          <ion-title>Guitar Scale Helper</ion-title>
+          <ion-title>Guitar-Wise Scales</ion-title>
         </ion-toolbar>
       </ion-header>,
       <ion-content no-padding>

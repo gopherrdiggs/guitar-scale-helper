@@ -122,36 +122,36 @@ export class GstScaleSelector {
         <ion-card-content>
           <ion-grid>
             <ion-row>
-              <ion-col size='2'>
+              <ion-col sizeXs='12' sizeSm='12' sizeMd='3' sizeLg='2' sizeXl='2'>
                 <ion-item>
                   <ion-label position='stacked'>Root</ion-label>
                   <ion-input readonly placeholder='Select a root' 
                              value={this.selectedRoot}></ion-input>
                   <ion-button slot='end' fill='clear'
                               onClick={()=>this.displayRootSelectorModal()}>
-                    <ion-icon slot='icon-only' name='more' />
+                    <ion-icon slot='icon-only' name='arrow-dropdown' />
                   </ion-button>
                 </ion-item>
               </ion-col>
-              <ion-col size='6'>
+              <ion-col sizeXs='12' sizeSm='12' sizeMd='5' sizeLg='2' sizeXl='2'>
                 <ion-item>
                   <ion-label position='stacked'>Scale</ion-label>
                   <ion-input readonly placeholder='Select a scale' 
                              value={this.selectedScale ? this.selectedScale.name : ''}></ion-input>
                   <ion-button slot='end' fill='clear'
                               onClick={()=>this.displayScaleSelectorModal()}>
-                    <ion-icon slot='icon-only' name='more' />
+                    <ion-icon slot='icon-only' name='arrow-dropdown' />
                   </ion-button>
                 </ion-item>
               </ion-col>
-              <ion-col size='4'>
+              <ion-col sizeXs='12' sizeSm='12' sizeMd='4' sizeLg='2' sizeXl='2'>
                 <ion-item>
                   <ion-label position='stacked'>Mode</ion-label>
                   <ion-input readonly placeholder='Select a mode' 
                              value={this.selectedMode ? this.selectedMode.name : ''}></ion-input>
                   <ion-button slot='end' fill='clear' disabled={!this.selectedScale}
                               onClick={()=>this.displayModeSelectorModal()}>
-                    <ion-icon slot='icon-only' name='more' />
+                    <ion-icon slot='icon-only' name='arrow-dropdown' />
                   </ion-button>
                 </ion-item>
               </ion-col>

@@ -58,7 +58,7 @@ export class GstFretboard {
         <ion-card-header color='secondary'>
           Guitar Fretboard
         </ion-card-header>
-        <ion-card-content padding>
+        <ion-card-content id='fretboardCardContent' padding>
           <div id='fretboardGrid'>
             <gst-nut id='fret_0' />
             <gst-fret id='fret_1' />

@@ -1,8 +1,11 @@
+#fretboardCardContent {
+  overflow-x: auto;
+}
+
 #fretboardGrid {
   display: grid;
   grid-template-columns: repeat(25, 60px);
   grid-template-rows: 240px;
   background-color: #fff;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding: 30px
 }
