@@ -17,7 +17,7 @@ export class GstFretboard {
   @Method()
   async load(keyNotes: string) {
 
-    console.log('loading scale with key: ', keyNotes);
+    // console.log('loading scale with key: ', keyNotes);
     this.keyNotes = keyNotes;
 
     let currentTuningSplit = this.currentTuning.split('|');
@@ -39,6 +39,8 @@ export class GstFretboard {
 
     // Load frets with note arrays
     let nutElem = this.el.getElementsByTagName('gst-nut')[0] as HTMLGstNutElement;
+    await nutElem.componentOnReady();
+    console.log('nutElem', nutElem);
     await nutElem.load(keyNotes, `${stringNotes[5][0]}|${stringNotes[4][0]}|${stringNotes[3][0]}|${stringNotes[2][0]}|${stringNotes[1][0]}|${stringNotes[0][0]}`);
 
     let fretElems = this.el.getElementsByTagName('gst-fret');

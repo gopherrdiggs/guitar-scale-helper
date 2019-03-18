@@ -13,7 +13,7 @@ export class GstFret {
   @Method()
   async load(keyNotes: string, noteData: string) {
 
-    console.log('fret loading...', noteData);
+    // console.log('fret loading...', noteData);
     let keyNotesSplit = keyNotes.split('|');
     let noteDataSplit = noteData.split('|');
     
