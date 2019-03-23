@@ -116,8 +116,10 @@ export class GstScaleSelector {
   render() {
     return [
       <ion-card>
-        <ion-card-header color='secondary'>
-          Scale Selector
+        <ion-card-header color='secondary' no-padding>
+          <ion-item color='secondary' lines='none'>
+            Scale Selector
+          </ion-item>
         </ion-card-header>
         <ion-card-content>
           <ion-grid>
@@ -133,7 +135,7 @@ export class GstScaleSelector {
                   </ion-button>
                 </ion-item>
               </ion-col>
-              <ion-col sizeXs='12' sizeSm='12' sizeMd='5' sizeLg='2' sizeXl='2'>
+              <ion-col sizeXs='12' sizeSm='12' sizeMd='4' sizeLg='2' sizeXl='2'>
                 <ion-item>
                   <ion-label position='stacked'>Scale</ion-label>
                   <ion-input readonly placeholder='Select a scale' 
@@ -144,7 +146,7 @@ export class GstScaleSelector {
                   </ion-button>
                 </ion-item>
               </ion-col>
-              <ion-col sizeXs='12' sizeSm='12' sizeMd='4' sizeLg='2' sizeXl='2'>
+              <ion-col sizeXs='12' sizeSm='12' sizeMd='5' sizeLg='3' sizeXl='3'>
                 <ion-item>
                   <ion-label position='stacked'>Mode</ion-label>
                   <ion-input readonly placeholder='Select a mode' 

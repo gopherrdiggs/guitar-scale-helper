@@ -23,8 +23,20 @@ export namespace Components {
   interface AppRoot {}
   interface AppRootAttributes extends StencilHTMLAttributes {}
 
+  interface GstSlideSelect {
+    'getSelectedValue': () => string;
+    'initialSelectedIndex': number;
+    'options': string[];
+    'shiftLeft': () => void;
+    'shiftRight': () => void;
+  }
+  interface GstSlideSelectAttributes extends StencilHTMLAttributes {
+    'initialSelectedIndex'?: number;
+    'options'?: string[];
+  }
+
   interface GstFret {
-    'load': (keyNotes: string, noteData: string) => Promise<void>;
+    'load': (keyNotes: string[], noteData: string[]) => Promise<void>;
     'markerNumber': string;
     'showMarker': boolean;
   }
@@ -51,6 +63,7 @@ export namespace Components {
     'hide': () => Promise<void>;
     'hideNoteName': () => Promise<void>;
     'load': (noteName: string, isShown: boolean, isRoot: boolean) => Promise<void>;
+    'setNoteName': (noteName: string) => Promise<void>;
     'show': () => Promise<void>;
   }
   interface GstFretnoteAttributes extends StencilHTMLAttributes {}
@@ -61,7 +74,7 @@ export namespace Components {
   interface GstFretslotAttributes extends StencilHTMLAttributes {}
 
   interface GstNut {
-    'load': (keyNotes: string, noteData: string) => Promise<void>;
+    'load': (keyNotes: string[], noteData: string[]) => Promise<void>;
   }
   interface GstNutAttributes extends StencilHTMLAttributes {}
 
@@ -77,12 +90,22 @@ export namespace Components {
     'onGstScaleSelected'?: (event: CustomEvent) => void;
   }
 
+  interface GstEmptyMenuPopover {
+    'menuContent': any;
+  }
+  interface GstEmptyMenuPopoverAttributes extends StencilHTMLAttributes {
+    'menuContent'?: any;
+  }
+
   interface GstModeSelectorModal {
     'scaleModes': ScaleMode[];
   }
   interface GstModeSelectorModalAttributes extends StencilHTMLAttributes {
     'scaleModes'?: ScaleMode[];
   }
+
+  interface GstNoteNameSelectorModal {}
+  interface GstNoteNameSelectorModalAttributes extends StencilHTMLAttributes {}
 
   interface GstRootSelectorModal {}
   interface GstRootSelectorModalAttributes extends StencilHTMLAttributes {}
@@ -95,6 +118,7 @@ declare global {
   interface StencilElementInterfaces {
     'AppHome': Components.AppHome;
     'AppRoot': Components.AppRoot;
+    'GstSlideSelect': Components.GstSlideSelect;
     'GstFret': Components.GstFret;
     'GstFretboard': Components.GstFretboard;
     'GstFretmarker': Components.GstFretmarker;
@@ -103,7 +127,9 @@ declare global {
     'GstNut': Components.GstNut;
     'GstNutslot': Components.GstNutslot;
     'GstScaleSelector': Components.GstScaleSelector;
+    'GstEmptyMenuPopover': Components.GstEmptyMenuPopover;
     'GstModeSelectorModal': Components.GstModeSelectorModal;
+    'GstNoteNameSelectorModal': Components.GstNoteNameSelectorModal;
     'GstRootSelectorModal': Components.GstRootSelectorModal;
     'GstScaleSelectorModal': Components.GstScaleSelectorModal;
   }
@@ -111,6 +137,7 @@ declare global {
   interface StencilIntrinsicElements {
     'app-home': Components.AppHomeAttributes;
     'app-root': Components.AppRootAttributes;
+    'gst-slide-select': Components.GstSlideSelectAttributes;
     'gst-fret': Components.GstFretAttributes;
     'gst-fretboard': Components.GstFretboardAttributes;
     'gst-fretmarker': Components.GstFretmarkerAttributes;
@@ -119,7 +146,9 @@ declare global {
     'gst-nut': Components.GstNutAttributes;
     'gst-nutslot': Components.GstNutslotAttributes;
     'gst-scale-selector': Components.GstScaleSelectorAttributes;
+    'gst-empty-menu-popover': Components.GstEmptyMenuPopoverAttributes;
     'gst-mode-selector-modal': Components.GstModeSelectorModalAttributes;
+    'gst-note-name-selector-modal': Components.GstNoteNameSelectorModalAttributes;
     'gst-root-selector-modal': Components.GstRootSelectorModalAttributes;
     'gst-scale-selector-modal': Components.GstScaleSelectorModalAttributes;
   }
@@ -135,6 +164,12 @@ declare global {
   var HTMLAppRootElement: {
     prototype: HTMLAppRootElement;
     new (): HTMLAppRootElement;
+  };
+
+  interface HTMLGstSlideSelectElement extends Components.GstSlideSelect, HTMLStencilElement {}
+  var HTMLGstSlideSelectElement: {
+    prototype: HTMLGstSlideSelectElement;
+    new (): HTMLGstSlideSelectElement;
   };
 
   interface HTMLGstFretElement extends Components.GstFret, HTMLStencilElement {}
@@ -185,10 +220,22 @@ declare global {
     new (): HTMLGstScaleSelectorElement;
   };
 
+  interface HTMLGstEmptyMenuPopoverElement extends Components.GstEmptyMenuPopover, HTMLStencilElement {}
+  var HTMLGstEmptyMenuPopoverElement: {
+    prototype: HTMLGstEmptyMenuPopoverElement;
+    new (): HTMLGstEmptyMenuPopoverElement;
+  };
+
   interface HTMLGstModeSelectorModalElement extends Components.GstModeSelectorModal, HTMLStencilElement {}
   var HTMLGstModeSelectorModalElement: {
     prototype: HTMLGstModeSelectorModalElement;
     new (): HTMLGstModeSelectorModalElement;
+  };
+
+  interface HTMLGstNoteNameSelectorModalElement extends Components.GstNoteNameSelectorModal, HTMLStencilElement {}
+  var HTMLGstNoteNameSelectorModalElement: {
+    prototype: HTMLGstNoteNameSelectorModalElement;
+    new (): HTMLGstNoteNameSelectorModalElement;
   };
 
   interface HTMLGstRootSelectorModalElement extends Components.GstRootSelectorModal, HTMLStencilElement {}
@@ -206,6 +253,7 @@ declare global {
   interface HTMLElementTagNameMap {
     'app-home': HTMLAppHomeElement
     'app-root': HTMLAppRootElement
+    'gst-slide-select': HTMLGstSlideSelectElement
     'gst-fret': HTMLGstFretElement
     'gst-fretboard': HTMLGstFretboardElement
     'gst-fretmarker': HTMLGstFretmarkerElement
@@ -214,7 +262,9 @@ declare global {
     'gst-nut': HTMLGstNutElement
     'gst-nutslot': HTMLGstNutslotElement
     'gst-scale-selector': HTMLGstScaleSelectorElement
+    'gst-empty-menu-popover': HTMLGstEmptyMenuPopoverElement
     'gst-mode-selector-modal': HTMLGstModeSelectorModalElement
+    'gst-note-name-selector-modal': HTMLGstNoteNameSelectorModalElement
     'gst-root-selector-modal': HTMLGstRootSelectorModalElement
     'gst-scale-selector-modal': HTMLGstScaleSelectorModalElement
   }
@@ -222,6 +272,7 @@ declare global {
   interface ElementTagNameMap {
     'app-home': HTMLAppHomeElement;
     'app-root': HTMLAppRootElement;
+    'gst-slide-select': HTMLGstSlideSelectElement;
     'gst-fret': HTMLGstFretElement;
     'gst-fretboard': HTMLGstFretboardElement;
     'gst-fretmarker': HTMLGstFretmarkerElement;
@@ -230,7 +281,9 @@ declare global {
     'gst-nut': HTMLGstNutElement;
     'gst-nutslot': HTMLGstNutslotElement;
     'gst-scale-selector': HTMLGstScaleSelectorElement;
+    'gst-empty-menu-popover': HTMLGstEmptyMenuPopoverElement;
     'gst-mode-selector-modal': HTMLGstModeSelectorModalElement;
+    'gst-note-name-selector-modal': HTMLGstNoteNameSelectorModalElement;
     'gst-root-selector-modal': HTMLGstRootSelectorModalElement;
     'gst-scale-selector-modal': HTMLGstScaleSelectorModalElement;
   }

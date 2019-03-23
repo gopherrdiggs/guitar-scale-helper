@@ -5,7 +5,7 @@ import { Component } from "@stencil/core";
 })
 export class GstRootSelectorModal {
 
-  private roots = ['C','C#/Db','D','D#/Eb','E','F','F#/Gb','G','G#/Ab','A','A#/Bb','B'];
+  private roots = ['C','C#','Db','D','Eb','E','F','F#','Gb','G','Ab','A','Bb','B'];
   private modalController: HTMLIonModalControllerElement;
 
   async componentDidLoad() {
@@ -34,7 +34,7 @@ export class GstRootSelectorModal {
           { this.roots.map(note =>   
             <ion-item button
                       onClick={()=>this.dismissWithSelection(note)}>
-              <ion-label>{note}</ion-label>
+              <ion-label>{note.replace('b', '\u266D').replace('#', '\u266F')}</ion-label>
             </ion-item>
           )}
         </ion-list>

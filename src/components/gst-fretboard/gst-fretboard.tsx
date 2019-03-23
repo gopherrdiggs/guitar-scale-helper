@@ -1,4 +1,5 @@
 import { Component, Element, Method, State } from "@stencil/core";
+import { findRelatedNote } from "../../helpers/utils";
 
 @Component({
   tag: 'gst-fretboard',
@@ -8,29 +9,45 @@ export class GstFretboard {
 
   @Element() el: HTMLGstFretboardElement;
   @State() keyNotes: string = 'C|D|E|F|G|A|B';
-  @State() currentTuning: string = 'E|A|D|G|B|E';
-  @State() showFlats: boolean;
+  @State() currentTuning: string[] = ['E','A','D','G','B','E'];
+  //TODO: Pull this from setting
+  @State() noteNames: string[] = ['A','A#','B','C','C#','D','D#','E','F','F#','G','G#'];
 
-  private allNotesWithSharps = ['A','A#','B','C','C#','D','D#','E','F','F#','G','G#','A','A#','B','C','C#','D','D#','E','F','F#','G','G#','A','A#','B','C','C#','D','D#','E','F','F#','G','G#'];
-  private allNotesWithFlats = ['A','Bb','B','C','Db','D','Eb','E','F','Gb','G','Ab','A','Bb','B','C','Db','D','Eb','E','F','Gb','G','Ab','A','Bb','B','C','Db','D','Eb','E','F','Gb','G','Ab'];
+  private modalController: HTMLIonModalControllerElement;
+  private popoverController: HTMLIonPopoverControllerElement;
+
+  componentDidLoad() {
+
+    this.modalController = document.querySelector('ion-modal-controller');
+    this.popoverController = document.querySelector('ion-popover-controller');
+  }
 
   @Method()
   async load(keyNotes: string) {
 
-    // console.log('loading scale with key: ', keyNotes);
+    console.log('loading scale with key: ', keyNotes);
     this.keyNotes = keyNotes;
-
-    let currentTuningSplit = this.currentTuning.split('|');
+    
     let stringNotes = [];
+    let fretDisplayNotes = this.keyNotes.split('|');
+
+    // Check for key note names that don't match currently
+    // selected note names
+    for (let i = 0; i < fretDisplayNotes.length; i++) {
+      if (!this.noteNames.includes(fretDisplayNotes[i])) {
+        
+        fretDisplayNotes[i] = findRelatedNote(fretDisplayNotes[i]);
+      }
+    }
 
     // Tune each string to the current tuning
     for (let i = 0; i < 6; i++) {
 
-      let notes = this.showFlats
-        ? [...this.allNotesWithFlats]
-        : [...this.allNotesWithSharps];
+      // Need enough notes for 24 frets
+      let notes = [...this.noteNames, ...this.noteNames, ...this.noteNames];
 
-      while (currentTuningSplit[i] != notes[0]) {
+      // Shift notes to match open tuning for string
+      while (this.currentTuning[i] != notes[0]) {
         notes.push(notes.shift());
       }
 
@@ -40,23 +57,86 @@ export class GstFretboard {
     // Load frets with note arrays
     let nutElem = this.el.getElementsByTagName('gst-nut')[0] as HTMLGstNutElement;
     await nutElem.componentOnReady();
-    console.log('nutElem', nutElem);
-    await nutElem.load(keyNotes, `${stringNotes[5][0]}|${stringNotes[4][0]}|${stringNotes[3][0]}|${stringNotes[2][0]}|${stringNotes[1][0]}|${stringNotes[0][0]}`);
+    
+    await nutElem.load(fretDisplayNotes, [stringNotes[5][0],stringNotes[4][0],stringNotes[3][0],stringNotes[2][0],stringNotes[1][0],stringNotes[0][0]]);
 
     let fretElems = this.el.getElementsByTagName('gst-fret');
 
     for (let i = 0; i < fretElems.length; i++) {
 
-      await fretElems[i].load(keyNotes, `${stringNotes[5][i+1]}|${stringNotes[4][i+1]}|${stringNotes[3][i+1]}|${stringNotes[2][i+1]}|${stringNotes[1][i+1]}|${stringNotes[0][i+1]}`);
+      await fretElems[i].load(fretDisplayNotes, [stringNotes[5][i+1],stringNotes[4][i+1],stringNotes[3][i+1],stringNotes[2][i+1],stringNotes[1][i+1],stringNotes[0][i+1]]);
     }
 
+  }
+
+  async reload() {
+
+    await this.load(this.keyNotes);
+  }
+
+  async handleMenuOptionClick(menuName: string) {
+    
+    this.popoverController.dismiss();
+
+    if (menuName === 'Set Tuning') {
+
+    }
+    else if (menuName === 'Set Note Names') {
+      await this.showNoteNameSelectorModal();
+    }
+  }
+  
+  async showNoteNameSelectorModal() {
+    
+    let modal = await this.modalController.create({
+      component: 'gst-note-name-selector-modal'
+    });
+  
+    modal.onDidDismiss().then(event => {
+      console.log('dismissed', event);
+    });
+  
+    await modal.present();
+  }
+
+  async showOptionsPopover(event: any) {
+
+    let menuContent = 
+      <ion-list>
+        <ion-item onClick={()=>this.handleMenuOptionClick('Set Tuning')}>
+          <ion-label>Set Tuning</ion-label>
+        </ion-item>
+        <ion-item lines='none' onClick={()=>this.handleMenuOptionClick('Set Note Names')}>
+          <ion-label>Set Note Names</ion-label>
+        </ion-item>
+      </ion-list>;
+
+    let popover = await this.popoverController.create({
+      component: 'gst-empty-menu-popover',
+      componentProps: {
+        menuContent: menuContent
+      },
+      event: event
+    });
+
+    await popover.present();
   }
 
   render() {
     return [
       <ion-card>
-        <ion-card-header color='secondary'>
-          Guitar Fretboard
+        <ion-card-header color='secondary' no-padding>
+          <ion-item color='secondary' lines='none'>
+            Guitar Fretboard
+            <ion-button slot='end' fill='clear'
+                        onClick={()=>this.reload()}>
+              <ion-icon slot='icon-only' name='refresh' color='light' />
+            </ion-button>
+            <ion-button slot='end' fill='clear'
+                        onClick={(ev)=>this.showOptionsPopover(ev)}>
+              <ion-icon slot='icon-only' name='more' color='light' />
+            </ion-button>
+          </ion-item>
         </ion-card-header>
         <ion-card-content id='fretboardCardContent' padding>
           <div id='fretboardGrid'>

@@ -1,4 +1,5 @@
 import { Component, Element, Prop, Method } from "@stencil/core";
+import { findRelatedNote, isSharpOrFlat } from "../../helpers/utils";
 
 @Component({
   tag: 'gst-fret',
@@ -11,38 +12,30 @@ export class GstFret {
   @Prop() markerNumber: string;
 
   @Method()
-  async load(keyNotes: string, noteData: string) {
-
-    // console.log('fret loading...', noteData);
-    let keyNotesSplit = keyNotes.split('|');
-    let noteDataSplit = noteData.split('|');
+  async load(keyNotes: string[], noteData: string[]) {
     
     let fretSlotElems = this.el.getElementsByTagName('gst-fretslot');
 
     for (let i = 0; i < fretSlotElems.length; i++) {
 
-      if (noteDataSplit[i] === keyNotesSplit[0]) {
+      if (noteData[i] === keyNotes[0]) {
         // Note is the root
-        await fretSlotElems[i].load(noteDataSplit[i] + '*');
+        await fretSlotElems[i].load(noteData[i] + '*');
       }
-      else if (this.arrayContains(keyNotesSplit, noteDataSplit[i])) {
+      else if (keyNotes.includes(noteData[i])) {
         // Note is in key
-        await fretSlotElems[i].load(noteDataSplit[i] + '.');
+        await fretSlotElems[i].load(noteData[i] + '.');
       }
-      else if (this.noteIsSharpOrFlat(noteDataSplit[i])
-        && this.arrayContains(keyNotesSplit, this.getEquivalentNoteName(noteDataSplit[i]))) {
+      else if (isSharpOrFlat(noteData[i])
+        && keyNotes.includes(findRelatedNote(noteData[i]))) {
         
         // Note is in key under a different name
-        await fretSlotElems[i].load(noteDataSplit[i] + '.');
+        await fretSlotElems[i].load(noteData[i] + '.');
       }
       else {
-        await fretSlotElems[i].load(noteDataSplit[i]);
+        await fretSlotElems[i].load(noteData[i]);
       }
     }
-  }
-
-  noteIsSharpOrFlat(note: string) {
-    return note.indexOf('b') > -1 || note.indexOf('#') > -1;
   }
 
   getEquivalentNoteName(note: string) {
@@ -59,17 +52,6 @@ export class GstFret {
       case 'G#': return 'Ab';
       case 'Ab': return 'G#';
     }
-  }
-
-  arrayContains(array: string[], search: string): boolean {
-
-    for (let i = 0; i < array.length; i++) {
-      if (array[i] === search) {
-        return true;
-      }
-    }
-
-    return false;
   }
 
   render() {

@@ -14,8 +14,6 @@ export class GstNutslot {
   @Method()
   async load(noteData: string) {
 
-    // console.log('loading nutslot...', noteData);
-
     if (noteData.indexOf('*') > 0) {
       let noteElem = this.el.querySelector('gst-fretnote') as HTMLGstFretnoteElement;
       await noteElem.load(noteData.replace('*', ''), true, true);

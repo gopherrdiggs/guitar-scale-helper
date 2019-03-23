@@ -41,6 +41,11 @@ export class GstFretnote {
     this.noteName = '';
   }
 
+  @Method()
+  async setNoteName(noteName: string) {
+    this.noteName = noteName;
+  }
+
   setButtonStyle() {
 
     if (this.isShown) {
@@ -63,6 +68,7 @@ export class GstFretnote {
     return [
       <ion-button class='fretNoteButton' 
                   size='small' shape='round'
+                  style={{ 'min-width': '42px' }}
                   fill={this.buttonFill === 'clear' ? 'clear' : 'solid'}
                   color={this.buttonColor}
                   onClick={()=>this.handleNoteClick()}>

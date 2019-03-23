@@ -1,4 +1,5 @@
 import { Component, Element, Method, State } from "@stencil/core";
+import { findRelatedNote, isSharpOrFlat } from "../../helpers/utils";
 
 @Component({
   tag: 'gst-nut',
@@ -15,65 +16,30 @@ export class GstNut {
   @State() note6Data: string;
 
   @Method()
-  async load(keyNotes: string, noteData: string) {
-
-    // console.log('nut loading...', noteData);
-    let keyNotesSplit = keyNotes.split('|');
-    let noteDataSplit = noteData.split('|');
+  async load(keyNotes: string[], noteData: string[]) {
 
     let nutSlotElems = this.el.getElementsByTagName('gst-nutslot');
 
     for (let i = 0; i < nutSlotElems.length; i++) {
 
-      if (noteDataSplit[i] === keyNotesSplit[0]) {
+      if (noteData[i] === keyNotes[0]) {
         // Note is the root
-        await nutSlotElems[i].load(noteDataSplit[i] + '*');
+        await nutSlotElems[i].load(noteData[i] + '*');
       }
-      else if (this.arrayContains(keyNotesSplit, noteDataSplit[i])) {
+      else if (keyNotes.includes(noteData[i])) {
         // Note is in key
-        await nutSlotElems[i].load(noteDataSplit[i] + '.');
+        await nutSlotElems[i].load(noteData[i] + '.');
       }
-      else if (this.noteIsSharpOrFlat(noteDataSplit[i])
-        && this.arrayContains(keyNotesSplit, this.getEquivalentNoteName(noteDataSplit[i]))) {
+      else if (isSharpOrFlat(noteData[i])
+        && keyNotes.includes(findRelatedNote(noteData[i]))) {
         
         // Note is in key under a different name
-        await nutSlotElems[i].load(noteDataSplit[i] + '.');
+        await nutSlotElems[i].load(noteData[i] + '.');
       }
       else {
-        await nutSlotElems[i].load(noteDataSplit[i]);
+        await nutSlotElems[i].load(noteData[i]);
       }
     }
-  }
-
-  noteIsSharpOrFlat(note: string) {
-    return note.indexOf('b') > -1 || note.indexOf('#') > -1;
-  }
-
-  getEquivalentNoteName(note: string) {
-
-    switch (note) {
-      case 'A#': return 'Bb';
-      case 'Bb': return 'A#';
-      case 'C#': return 'Db';
-      case 'Db': return 'C#';
-      case 'D#': return 'Eb';
-      case 'Eb': return 'D#';
-      case 'F#': return 'Gb';
-      case 'Gb': return 'F#';
-      case 'G#': return 'Ab';
-      case 'Ab': return 'G#';
-    }
-  }
-
-  arrayContains(array: string[], search: string): boolean {
-
-    for (let i = 0; i < array.length; i++) {
-      if (array[i] === search) {
-        return true;
-      }
-    }
-
-    return false;
   }
 
   render() {
